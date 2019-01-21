@@ -102,4 +102,5 @@ function submit() {
             faye.publish('/submit', {color: color, teams: teamnos})
                 location.reload();
         });
+        client.publish('/results', {text: 'Submit'});
 }

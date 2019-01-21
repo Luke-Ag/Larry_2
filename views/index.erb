@@ -16,9 +16,18 @@
         <script src="js/update.js"></script>
         <script src="js/button.js"></script>
         <script src="/faye/faye.js"></script>
+        <script src="js/vue.js"></script>
         <script src="js/konami.min.js"></script>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
     </head>    
+    <style>
+.inputy {
+    background-color:<%= @color == 'red' ? '#FFD0F0' : '#CFFFFF' %>
+}
+.inputt {
+    background-color:<%= @color != 'red' ? '#FFD0F0' : '#CFFFFF' %>
+}
+    </style>
     <body style="height:500px;">
         <div class="container-fluid">
             <div class="row">
@@ -31,26 +40,26 @@
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "461"}%>
                                             <div>
-                                                <input type="text" data-teamid="461" value="461" data-team-field="1" style="background-color:<%= @color == 'red' ? '#ffdddd' : '#ddddff' %>"></input>
+                                                <input type="text" data-teamid="461" value="461" data-team-field="1" class="inputy"></input>
                                                 <button class="btn btn-info" data-teamid="461" onClick="upDateteamnum(this)" data-team-button="1">Update</button>
                                             </div>
                                             <div>
-                                                <input type="text" data-teamid="464" value="464" data-team-field="4" style="background-color:<%= @color != 'red' ? '#ffdddd' : '#ddddff' %>"></input>
+                                                <input type="text" data-teamid="464" value="464" data-team-field="4" class="inputt"></input>
                                                 <button class="btn btn-info" data-teamid="464" onClick="upDateteamnum(this)" data-team-button="4">Update</button>
                                             </div>
                                             <br><br>
-                                            <div style="height:195px;width:295px;background-color:<%= @color == 'red' ? '#ff9990' : '#9990ff' %>">
-                                                <center><h3 style="color:white;text-align:center;padding-top:91px;padding-bottom:0px"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></center><button onClick"kunami()" style="background-color:<%= @color == 'red' ? '#ff9990' : '#9990ff' %>" type="button" class="btn"></button></h3>
+                                            <div style="height:195px;width:295px;background-color:<%= @color == 'red' ? '#CF000F' : '#3F51B5' %>">
+                                                <center><h3 style="color:white;text-align:center;padding-top:83px"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></center></h3>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "462"}%>
                                             <div>
-                                                <input type="text" data-teamid="462" value="462" data-team-field="2" style="background-color:<%= @color == 'red' ? '#ffdddd' : '#ddddff' %>"></input>
+                                                <input type="text" data-teamid="462" value="462" data-team-field="2" class="inputy"></input>
                                                 <button class="btn btn-info" data-teamid="462" onClick="upDateteamnum(this)" data-team-button="2">Update</button>
                                             </div>
                                             <div>
-                                                <input type="text" data-teamid="465" value="465" data-team-field="5" style="background-color:<%= @color != 'red' ? '#ffdddd' : '#ddddff' %>"></input>
+                                                <input type="text" data-teamid="465" value="465" data-team-field="5" class="inputt"></input>
                                                 <button class="btn btn-info" data-teamid="465" onClick="upDateteamnum(this)" data-team-button="5">Update</button>
                                             </div>
                                             <br><br>
@@ -66,16 +75,16 @@
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "463"}%>
                                             <div>
-                                                <input type="text" data-teamid="463" value="463" data-team-field="3" style="background-color:<%= @color == 'red' ? '#ffdddd' : '#ddddff' %>"></input>
+                                                <input type="text" data-teamid="463" value="463" data-team-field="3" class="inputy"></input>
                                                 <button class="btn btn-info" data-teamid="463" onClick="upDateteamnum(this)" data-team-button="3">Update</button>
                                             </div>
                                             <div>
-                                                <input type="text" data-teamid="466" value="466" data-team-field="6" style="background-color:<%= @color != 'red' ? '#ffdddd' : '#ddddff' %>"></input>
+                                                <input type="text" data-teamid="466" value="466" data-team-field="6" class="inputt"></input>
                                                 <button class="btn btn-info" data-teamid="466" onClick="upDateteamnum(this)" data-team-button="6">Update</button>
                                             </div>
                                             <br><br>
-                                            <div style="height:195px;width:295px;background-color:<%= @color == 'red' ? '#ff9990' : '#9990ff' %>">
-                                                <h3 style="color:white;text-align:center;padding-top:91px;padding-bottom:91px"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></h3>
+                                            <div style="height:195px;width:295px;background-color:<%= @color == 'red' ? '#CF000F' : '#3f51b5' %>">
+                                                <h3 style="color:white;text-align:center;padding-top:83px;"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></h3>
                                             </div>
                                         </div>
                                     </div>
@@ -88,15 +97,30 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "461"}%>
-                                            <%= partial :button3, locals: {label: "Foul", id: 'auto-foul',teamid: "461"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'sandComp', name1: "Auto",name2: "Teleop",teamid: "461"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'startPos', name1: "Level 1",name2: "Level 2",teamid: "461"}%>
+                                            <%= partial :button2, locals: {datapoint: "hatch-play", label: "Hth Good", id: 'hatch-placed',teamid: "461"}%>
+                                            <%= partial :button2, locals: {datapoint: "hatch-drop", label: "Hth Bad", id: 'hatch-drop',teamid: "461"}%>
+                                            <%= partial :button2, locals: {datapoint: "cargo-play", label: "Crg Good", id: 'cargo-placed',teamid: "461"}%>
+                                            <%= partial :button2, locals: {datapoint: "cargo-drop", label: "Crg Bad", id: 'cargo-drop',teamid: "461"}%>
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial :name, locals: {name: "Name",teamid: "462"}%>
-                                            <%= partial :button3, locals: {label: "Foul", id: 'auto-foul',teamid: "462"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'sandComp', name1: "Auto",name2: "Teleop",teamid: "462"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'startPos', name1: "Level 1",name2: "Level 2",teamid: "462"}%>
+                                            <%= partial :button2, locals: {datapoint: "hatch-play", label: "Hth Good", id: 'hatch-placed',teamid: "462"}%>
+                                            <%= partial :button2, locals: {datapoint: "hatch-drop", label: "Hth Bad", id: 'hatch-drop',teamid: "462"}%>
+                                            <%= partial :button2, locals: {datapoint: "cargo-play", label: "Crg Good", id: 'cargo-placed',teamid: "462"}%>
+                                            <%= partial :button2, locals: {datapoint: "cargo-drop", label: "Crg Bad", id: 'cargo-drop',teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial :name, locals: {name: "Name",teamid: "463"}%>
-                                            <%= partial :button3, locals: {label: "Foul", id: 'auto-foul',teamid: "463"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'sandComp', name1: "Auto",name2: "Teleop",teamid: "463"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'startPos', name1: "Level 1",name2: "Level 2",teamid: "463"}%>
+                                            <%= partial :button2, locals: {datapoint: "hatch-play", label: "Hth Good", id: 'hatch-placed',teamid: "463"}%>
+                                            <%= partial :button2, locals: {datapoint: "hatch-drop", label: "Hth Bad", id: 'hatch-drop',teamid: "463"}%>
+                                            <%= partial :button2, locals: {datapoint: "cargo-play", label: "Crg Good", id: 'cargo-placed',teamid: "463"}%>
+                                            <%= partial :button2, locals: {datapoint: "cargo-drop", label: "Crg Bad", id: 'cargo-drop',teamid: "463"}%>
                                         </div>    
                                     </div>
                                 </div>
@@ -108,15 +132,24 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "461"}%>
-                                            <%= partial :button3, locals: {label: "Foul", id: 'tele-foul',teamid: "461"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "461"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "461"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rcoket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "461"}%>
+                                            <%= partial :button, locals: {datapoint: "defense",name: "Defense?",  teamid: "461"}%>
                                         </div> 
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "462"}%>
-                                            <%= partial :button3, locals: {label: "Foul", id: 'tele-foul',teamid: "462"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "462"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "462"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rcoket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "462"}%>
+                                            <%= partial :button, locals: {datapoint: "defense",name: "Defense?", teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "463"}%>
-                                            <%= partial :button3, locals: {label: "Foul", id: 'tele-foul',teamid: "463"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "463"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "463"}%>
+                                            <%= partial :rocket, locals: {datapoint: "rcoket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "463"}%>
+                                            <%= partial :button, locals: {datapoint: "defense", name: "Defense?", teamid: "463"}%>
                                         </div>
                                     </div>
                                 </div>
@@ -128,54 +161,47 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "461"}%>
-                                            <h6 style="text-align:center">Driver Rating</h6>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <center><%= partial :rating, locals: {name: ":)",teamid: "461"}%></center>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <center><%= partial :rating1, locals: {name: ":(",teamid: "461"}%></center>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <input type="text" placeholder="Comments" data-teamid="461" data-comment style="margin: 10px;width: 95%;"></input>
-                                            </div>
+                                            <%= partial :rating, locals: {datapoint: 'rating', name1: "PoT",name2: "BoW",name3: "GgG",teamid: "461"}%>
+                                            <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "461"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "462"}%>
-                                            <h6 style="text-align:center">Driver Rating</h6>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <center><%= partial :rating, locals: {name: ":)",teamid: "462"}%></center>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <center><%= partial :rating1, locals: {name: ":(",teamid: "462"}%></center>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <input type="text" placeholder="Comments" data-teamid="462" data-comment style="margin: 10px;width: 95%;"></input>
-                                            </div>
+                                            <%= partial :rating, locals: {datapoint: 'rating', name1: "PoT",name2: "BoW",name3: "GgG",teamid: "462"}%>
+                                            <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "463"}%>
-                                            <h6 style="text-align:center">Driver Rating</h6>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <center><%= partial :rating, locals: {name: ":)",teamid: "463"}%></center>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <center><%= partial :rating1, locals: {name: ":(",teamid: "463"}%></center>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <input type="text" placeholder="Comments" data-teamid="463" data-comment style="margin: 10px;width: 95%;"></input>
-                                            </div>
+                                            <%= partial :rating, locals: {datapoint: 'rating', name1: "PoT",name2: "BoW",name3: "GgG",teamid: "463"}%>
+                                            <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "463"}%>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <button type="button" onClick="submit()" class="btn btn-dark btn-lg btn-block">Submit</button>
+                            <div class="row" id="app6">
+                                <button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
+                                <input v-model="message" style="width: 100%;margin:10px;">
+                                <script>
+var app6 = new Vue({
+    el: '#app6',
+    data: {
+        message: "test1"
+    }
+})
+var client;
+$(function() {
+    client = new Faye.Client('http://vps.boilerinvasion.org:9292/faye');
+});
+function idk() {
+    var publication = client.publish('/result/red', {text: app6.message });
+
+    publication.then(function() {
+        alert('Message received by server!');
+    }, function(error) {
+        alert('There was a problem: ' + error.message);
+    });
+    submit();
+}
+                                </script>
                             </div>
                         </div>
                     </div>

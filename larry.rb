@@ -11,6 +11,9 @@ class ScoutingProject < Sinatra::Base
     set :mongo_db, db[:unnamedScoutingProject]
     set :tba, TheBlueAlliance.new
   end
+  get '/test' do
+    erb :test
+  end
   get '/' do
     erb :home
   end
@@ -161,7 +164,9 @@ class ScoutingProject < Sinatra::Base
     @B3 = data['B3']
     erb :scoutmaster	
   end
-
+  get '/im' do
+      erb :im
+  end 
   get '/future' do
     settings.mongo_db.find({futurematch: true}).first.to_json
   end

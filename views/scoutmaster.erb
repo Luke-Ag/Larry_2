@@ -1,239 +1,29 @@
 <html>
     <head>
-        <link rel="stylesheet" href="/css/bootstrap.min.css"</link>
-        <link rel="stylesheet" href="/css/global.css"</link>
-        <link rel="stylesheet" href="/css/toastr.min.css"></link>
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/toastr.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css"</link>
+        <link rel="stylesheet" href="css/global.css"</link>
+        <link rel="stylesheet" href="css/toastr.min.css"></link>
+        <script type="text/javascript" 
+                src="http://vps.boilerinvasion.org:9292/faye/client.js">
+        </script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/toastr.min.js"></script>
+        <script src="js/scoutmaster.js"></script>
         <script src="/faye/faye.js"></script>
+        <script>
+var client;
+$(function() {
+    client = new Faye.Client('http://vps.boilerinvasion.org:9292/faye');
+    client.subscribe('/result/*', function(message) {console.log(message);} );
+});
+        </script>
 
         <meta
                 name='viewpoint'
                 content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
                 />
     </head>
-    <style>
-a {
-
-}
-    </style>
-    <script>
-var matchCounter = 0;
-var matchList = [];
-
-function up() {
-  matchCounter += 1;
-        updateMatchDisplay();
-}
-
-function down() {
-  matchCounter -= 1;
-        updateMatchDisplay();
-}
-
-$(function() { 
-    $('.carousel').carousel('pause');
-    $('button[data-ctr-action]').click(function() {
-        id = $(this).data('ctr-id');
-        teamid = $(this).data('teamid');
-        console.log(id);
-        val = parseInt($('[data-teamid=' + teamid + '][data-ctr-value=' + id + ']').html());
-        console.log(val);
-        if($(this).data('ctr-action') == '+') {
-            val += 1;
-        }else{
-            val -= 1;
-        }
-        $('[data-teamid=' + teamid + '][data-ctr-value=' + id + ']').html(val);
-
-    });
-    $('button[data-btn-action]').click(function() {
-        console.log($(this));
-        if($(this).hasClass('btn-success')) {
-            $(this).removeClass('btn-success');
-            $(this).addClass('btn-light');
-        } else { 
-            $(this).addClass('btn-success');
-            $(this).removeClass('btn-light');
-        }
-    });
-
-
-
-    $.get('/events.json', function(d) {
-      d = JSON.parse(d);
-      d.forEach(function(e) {
-        $('#eventSelector').append('<option value="' + e.event + '">' + e.event + '</option>')
-      });
-      matchList = d[0].matches;
-        updateMatchDisplay();
-    });
-
-    $('#eventSelector').change(function() {
-      $.get('/events/' + $(this).val() + '.json', function(d) {
-        matchList = JSON.parse(d).matches;
-        matchCounter = 0;
-        updateMatchDisplay();
-      });
-    });
-
-    $('[data-action=pushMatch]').click(function() {
-      match = matchList[matchCounter];
-      $.post('/scoutmaster/submit', {R1: match.red[0], R2: match.red[1], R3: match.red[2], B1: match.blue[0], B2: match.blue[1], B3: match.blue[2], MN: match.comp_level + match.match, EV: match.event }, function() {
-        location.reload();
-      });
-    });
-
-    $.get('/future', function(d) {
-        data = JSON.parse(d);
-            $('[data-team-field=1]').val(data.R1);
-            $('[data-team-field=2]').val(data.R2);
-            $('[data-team-field=3]').val(data.R3);
-            $('[data-team-field=4]').val(data.B1);
-            $('[data-team-field=5]').val(data.B2);
-            $('[data-team-field=6]').val(data.B3);
-
-        $('#matchNumber').val(data.MN);
-        $('#eventID').val(data.EV);
-
-        $('#eventSelector').val(data.EV);
-        $.get('/events/' + data.EV + '.json', function(d) {
-          matchList = JSON.parse(d).matches;
-
-          $.each(matchList, function(i, e) {
-            if(e.comp_level + e.match == data.MN) {
-              console.log("FOUND " + data.MN);
-              matchCounter = i;
-              console.log(i);
-            }
-          });
-
-          updateMatchDisplay();
-          updateTeamNums();
-        });
-
-
-    });
-
-
-});
-
-function fail(e) {
-    if($(e).hasClass('btn-dark')){
-        $(e).removeClass('btn-dark').addClass('btn-danger');
-    }else{
-        $(e).removeClass('btn-danger').addClass('btn-dark');
-    }
-}
-
-function updateMatchDisplay() {
-  match = matchList[matchCounter];
-  $('#matchNumber').html(match.comp_level + " " + match.match);
-  $('#redTeamList').html(match.red.map(function(e) {return "<div>" + e + "</div>"}))
-  $('#blueTeamList').html(match.blue.map(function(e) {return "<div>" + e + "</div>"}))
-}
-function submit() {
-    parts = [];
-    teamnos = [];
-    $('input[type=text][data-teamid]').toArray().map(function(e) {return $(e).data('teamid')}).forEach(function(teamNumber) {
-        teamnos.push("" + $('.badge[data-teamid=' + teamNumber + ']').html());
-        payload = {};
-        payload['team'] = "" + $('.badge[data-teamid=' + teamNumber + ']').html();
-        payload['match'] = $('#matchNumber').val();
-        set = $('[data-teamid=' + teamNumber + ']').filter(function(i, e) {
-            e = $(e);
-            if(e.val() == teamNumber) { return false; }
-            if(e.html() == "+" || e.html() == "-") { return false; }
-            if(e.hasClass('badge')) { return false; }
-            if(e.hasClass('btn-info')) {return false;}
-            return true;
-        });
-
-        counters = set.filter('span');
-        $.each(counters, function(i, el) {
-            el = $(el);
-            payload[el.data('ctrId')] = el.html();
-        });
-
-        dps = set.filter('[data-datapoint]');
-        dpNames = dps.toArray().map(function(e) {return $(e).data('datapoint')}).filter(function(v, i, s) {return s.indexOf(v) === i});
-        dpNames.forEach(function(n) {
-            payload[n] = '-';
-        });
-        $.each(dps, function(i, el) {
-            el = $(el);
-            if(el.hasClass('btn-success')) {
-                payload[el.data('datapoint')] = el.html();
-            }
-        });
-
-        payload['fail'] = set.filter('[data-fail]').hasClass('btn-danger') ? '1' : '-';
-        if(set.filter('[data-comment]').length > 0) {
-            payload['Scouting Comment'] = set.filter('[data-comment]').val();
-        }
-
-        parts.push(JSON.stringify(payload));
-    });
-
-    $.post('/form', {payload1: parts[0], payload2: parts[1], payload3: parts[2], payload4: parts[3], payload5: parts[4], payload6: parts[5]}, function(e) {
-            location.reload();
-    });
-
-}
-
-function qFunction() {
-    console.log($(indicator));
-    $('.carousel').carousel('next');
-    if ($('#indicator').hasClass('pre')) {
-        $('#indicator').removeClass('pre');
-        $('#indicator').addClass('tele');
-        $('#indicator').html('Tele');
-    } else if ($('#indicator').hasClass('tele')) {
-        $('#indicator').removeClass('tele');
-        $('#indicator').addClass('end');
-        $('#indicator').html('Endgame');
-    } else if ($('#indicator').hasClass('end')) {
-        $('#indicator').removeClass('end');
-        $('#indicator').addClass('post');
-        $('#indicator').html('Post');
-    } else if ($('#indicator').hasClass('post')) {
-        $('#indicator').removeClass('post');
-        $('#indicator').addClass('pre');
-        $('#indicator').html('Pre');
-    }
-}
-function gqFunction() {
-    $('.carousel').carousel('prev');
-    if ($('#indicator').hasClass('pre')) {
-        $('#indicator').removeClass('pre');
-        $('#indicator').addClass('post');
-        $('#indicator').html('Post');
-    } else if ($('#indicator').hasClass('tele')) {
-        $('#indicator').removeClass('tele');
-        $('#indicator').addClass('pre');
-        $('#indicator').html('Pre');
-    } else if ($('#indicator').hasClass('end')) {
-        $('#indicator').removeClass('end');
-        $('#indicator').addClass('tele');
-        $('#indicator').html('Tele');
-    } else if ($('#indicator').hasClass('post')) {
-        $('#indicator').removeClass('post');
-        $('#indicator').addClass('end');
-        $('#indicator').html('Endgame');
-    }
-}
-
-function updateTeamNums() {
-  for(i=1;i<=6;i++) {
-    ele = $('input[type=text][data-team-field=' + i + ']');
-    v = ele.val();
-    c = ele.data('teamid');
-    $('span.badge[data-teamid='+c+']').html(v);
-    $('h4[data-teamid='+c+']').html(v);
-  }
-}
-    </script>
     <body>
         <div class="container-fluid">
             <div class="row">
@@ -241,175 +31,56 @@ function updateTeamNums() {
                     <div class="carousel-inner">
                         <div class="carousel-item active" style="padding:10px">
                             <div class="row">    
-                                <div class="col-sm-4 a">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1><span data-teamid="461" style="width:100%" class="badge badge-secondary">461</span></h1>
-                                            <input type="text" data-teamid="461" value="461" data-team-field="1"></input>
-                                        </div>
-                                    </div>    
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1><span data-teamid="462" style="width:100%" class="badge badge-secondary">462</span></h1>
-                                            <input type="text" data-teamid="462" value="462" data-team-field="2"></input>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1><span data-teamid="463" style="width:100%" class="badge badge-secondary">463</span></h1>
-                                            <input type="text" data-teamid="463" value="463" data-team-field="3"></input>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-4 offset-sm-4">
-                                        <button type="button" class="btn btn-dark btn-lg" onClick="updateTeamNums()">Update Team Numbers</button>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 a">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="card text-white bg-secondary mb-3" style="width:100%;">
-                                                <h1><span style="width:100%" class="badge badge-secondary">Event ID</span></h1>
-                                                <div class="card-body">
-                                                    <select id="eventSelector" style="width:100%">
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="card text-white bg-secondary mb-3" style="width: 100%;">
-                                                <h1><span style="width:100%" class="badge badge-secondary">Match</span></h1>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <button class="button btn btn-light btn-lg btn-block" onClick="down()" style="background-color:white">-</button>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                          <center><div id="matchNumber"></div></center>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <button class="button btn btn-light btn-lg btn-block" onClick="up()" style="background-color:white">+</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mt-3">
-                                                      <div class="col-sm-4 offset-sm-2" style="background-color: #f44;">
-                                                        <div id="redTeamList">
-                                                        </div>
-                                                      </div>
-                                                      <div class="col-sm-4" style="background-color: #46f;">
-                                                        <div id="blueTeamList">
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row mt-3">
-                                                      <div class="col-6 offset-3">
-                                                        <button type="button" data-action="pushMatch" class="btn btn-primary btn-lg btn-block">Push Next Match</button>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 a">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1><span data-teamid="464" style="width:100%" class="badge badge-secondary">464</span></h1>
-                                            <input type="text" data-teamid="464" value="464" data-team-field="4"></input>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1><span data-teamid="465" style="width:100%" class="badge badge-secondary">465</span></h1>
-                                            <input type="text" data-teamid="465" value="465" data-team-field="5"></input>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1><span data-teamid="466" style="width:100%" class="badge badge-secondary">466</span></h1>
-                                            <input type="text" data-teamid="466" value="466" data-team-field="6"></input>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-4 offset-sm-4">
-                                        <button type="button" class="btn btn-dark btn-lg" onClick="updateTeamNums()">Update Team Numbers</button>
-                                      </div>
-                                    </div>
-                                </div>
+                                <%= partial :begin %>
                             </div>
                         </div>
                         <div class="carousel-item" style="padding:10px">
                             <div class="row">    
                                 <div class="col-sm-6">
-                                    <h4 data-teamid="461" style="width:100%;text-align:center">461</h4>
-                                    <%= partial :counter, locals: {label: "Scale", id: 'tele-scale', teamid: "461"} %>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul', teamid: "461"} %>
-                                    <h4 data-teamid="462" style="width:100%;text-align:center">462</h4>
-                                    <%= partial :counter, locals: {label: "Scale", id: 'tele-scale',teamid: "462"} %>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul', teamid: "462"} %>
-                                    <h4 data-teamid="463"style="width:100%;text-align:center">463</h4>
-                                    <%= partial :counter, locals: {label: "Scale", id: 'tele-scale',teamid: "463"} %>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul', teamid: "463"} %>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4 data-teamid="464" style="width:100%;text-align:center">464</h4>
-                                    <%= partial :counter, locals: {label: "Scale", id: 'tele-scale',teamid: "464"} %>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "464"}%>
-                                    <h4 data-teamid="465" style="width:100%;text-align:center">465</h4>
-                                    <%= partial :counter, locals: {label: "Scale", id: 'tele-scale',teamid: "465"} %>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "465"}%>
-                                    <h4 data-teamid="466" style="width:100%;text-align:center">466</h4>
-                                    <%= partial :counter, locals: {label: "Scale", id: 'tele-scale',teamid: "466"} %>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "466"}%>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="padding:10px">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h4 data-teamid="461" style="width:100%;text-align:center">461</h4>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "461"}%>
-                                    <h4 data-teamid="462"style="margin-top:20px;width:100%;text-align:center">462</h4>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "462"}%>
-                                    <h4 data-teamid="463" style="margin-top:20px;width:100%;text-align:center">463</h4>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "463"}%>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4 data-teamid="464" style="width:100%;text-align:center">464</h4>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "464"}%>
-                                    <h4 data-teamid="465" style="margin-top:20px;width:100%;text-align:center">465</h4>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "465"}%>
-                                    <h4 data-teamid="466" style="margin-top:20px;width:100%;text-align:center">466</h4>
-                                    <%= partial :button2, locals: {label: "Foul", id: 'foul',teamid: "466"}%>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="padding:10px">
-                            <div class="row">    
-                                <div class="col-sm-6">
-                                    <h4 data-teamid="461" style="margin-top:20px;width:100%;text-align:center">461</h4>
+                                    <%= partial :name, locals: {name: "Name",teamid: "461"}%>
+                                    <%= partial :button2, locals: {datapoint: "Foul", label: "Foul", id: 'foul', teamid: "461"} %>
                                     <%= partial :button1, locals: {name: "Fail", teamid: "461"}%>
-                                    <input type="text" placeholder="Comments" data-teamid="461" data-comment style="margin: 10px;width: 95%;"></input>
-                                    <h4 data-teamid="462" style="margin-top:20px;width:100%;text-align:center">462</h4>
+                                    </br>
+                                    <%= partial :name, locals: {name: "Name",teamid: "462"}%>
+                                    <%= partial :button2, locals: {datapoint: "Foul", label: "Foul", id: 'foul', teamid: "462"} %>
                                     <%= partial :button1, locals: {name: "Fail", teamid: "462"}%>
-                                    <input type="text" placeholder="Comments" data-teamid="462" data-comment style="margin: 10px;width: 95%;"></input>
-                                    <h4 data-teamid="463" style="margin-top:20px;width:100%;text-align:center">463</h4>
+                                    </br>
+                                    <%= partial :name, locals: {name: "Name",teamid: "463"}%>
+                                    <%= partial :button2, locals: {datapoint: "Foul", label: "Foul", id: 'foul', teamid: "463"} %>
                                     <%= partial :button1, locals: {name: "Fail", teamid: "463"}%>
-                                    <input type="text" placeholder="Comments" data-teamid="463" data-comment style="margin: 10px;width: 95%;"></input>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h4 data-teamid="464" style="margin-top:20px;width:100%;text-align:center">464</h4>
+                                    <%= partial :name, locals: {name: "Name",teamid: "464"}%>
+                                    <%= partial :button2, locals: {datapoint: "Foul", label: "Foul", id: 'foul', teamid: "464"} %>
                                     <%= partial :button1, locals: {name: "Fail", teamid: "464"}%>
-                                    <input type="text" placeholder="Comments" data-teamid="464" data-comment style="margin: 10px;width: 95%;"></input>
-                                    <h4 data-teamid="465" style="margin-top:20px;width:100%;text-align:center">465</h4>
+                                    </br>
+                                    <%= partial :name, locals: {name: "Name",teamid: "465"}%>
+                                    <%= partial :button2, locals: {datapoint: "Foul", label: "Foul", id: 'foul', teamid: "465"} %>
                                     <%= partial :button1, locals: {name: "Fail", teamid: "465"}%>
-                                    <input type="text" placeholder="Comments" data-teamid="465" data-comment style="margin: 10px;width: 95%;"></input>
-                                    <h4 data-teamid="466" style="margin-top:20px;width:100%;text-align:center">466</h4>
+                                    </br>
+                                    <%= partial :name, locals: {name: "Name",teamid: "466"}%>
+                                    <%= partial :button2, locals: {datapoint: "Foul", label: "Foul", id: 'foul', teamid: "466"} %>
                                     <%= partial :button1, locals: {name: "Fail", teamid: "466"}%>
-                                    <input type="text" placeholder="Comments" data-teamid="466" data-comment style="margin: 10px;width: 95%;"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="padding:10px">
+                            <div class="row">    
+                                <div class="col-sm-6">
+                                    <%= partial :name, locals: {name: "Name",teamid: "461"}%>
+                                    <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "461"}%>
+                                    <%= partial :name, locals: {name: "Name",teamid: "462"}%>
+                                    <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "462"}%>
+                                    <%= partial :name, locals: {name: "Name",teamid: "463"}%>
+                                    <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "463"}%>
+                                </div>
+                                <div class="col-sm-6">
+                                    <%= partial :name, locals: {name: "Name",teamid: "464"}%>
+                                    <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "464"}%>
+                                    <%= partial :name, locals: {name: "Name",teamid: "465"}%>
+                                    <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "465"}%>
+                                    <%= partial :name, locals: {name: "Name",teamid: "466"}%>
+                                    <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "466"}%>
                                 </div>
                             </div>
                             <div class="row">

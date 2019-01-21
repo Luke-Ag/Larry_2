@@ -1,0 +1,98 @@
+<div class="col-sm-4 a">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span data-teamid="461" style="width:100%" class="badge badge-secondary">461</span></h1>
+            <input type="text" data-teamid="461" value="461" data-team-field="1"></input>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span data-teamid="462" style="width:100%" class="badge badge-secondary">462</span></h1>
+            <input type="text" data-teamid="462" value="462" data-team-field="2"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span data-teamid="463" style="width:100%" class="badge badge-secondary">463</span></h1>
+            <input type="text" data-teamid="463" value="463" data-team-field="3"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 offset-sm-4">
+            <button type="button" class="btn btn-dark btn-lg" onClick="updateTeamNums()">Update Team Numbers</button>
+        </div>
+    </div>
+</div>
+<div class="col-sm-4 a">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-secondary mb-3" style="width:100%;">
+                <h1><span style="width:100%" class="badge badge-secondary">Event ID</span></h1>
+                <div class="card-body">
+                    <select id="eventSelector" style="width:100%">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-secondary mb-3" style="width: 100%;">
+                <h1><span style="width:100%" class="badge badge-secondary">Match</span></h1>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button class="button btn btn-light btn-lg btn-block" onClick="down()" style="background-color:white">-</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <center><div id="matchNumber"></div></center>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="button btn btn-light btn-lg btn-block" onClick="up()" style="background-color:white">+</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-4 offset-sm-2" style="background-color: #f44;">
+                            <div id="redTeamList">
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="background-color: #46f;">
+                            <div id="blueTeamList">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6 offset-3">
+                            <button type="button" data-action="pushMatch" class="btn btn-primary btn-lg btn-block">Push Next Match</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-4 a">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span data-teamid="464" style="width:100%" class="badge badge-secondary">464</span></h1>
+            <input type="text" data-teamid="464" value="464" data-team-field="4"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span data-teamid="465" style="width:100%" class="badge badge-secondary">465</span></h1>
+            <input type="text" data-teamid="465" value="465" data-team-field="5"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span data-teamid="466" style="width:100%" class="badge badge-secondary">466</span></h1>
+            <input type="text" data-teamid="466" value="466" data-team-field="6"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 offset-sm-4">
+            <button type="button" class="btn btn-dark btn-lg" onClick="updateTeamNums()">Update Team Numbers</button>
+        </div>
+    </div>
+</div>
