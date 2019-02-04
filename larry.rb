@@ -25,7 +25,6 @@ class ScoutingProject < Sinatra::Base
       @teams[match['team'].to_i] ||= []
       @teams[match['team'].to_i] << match
     end
-
     erb :trending
   end
   get '/trend.json' do
@@ -64,9 +63,6 @@ class ScoutingProject < Sinatra::Base
     else
       [401, "No USB Drive available: #{drive.inspect}"]
     end
-  end
-  get '/compress' do
-    erb :compress
   end
   get '/ynot' do
     erb :ynot
@@ -164,9 +160,6 @@ class ScoutingProject < Sinatra::Base
     @B3 = data['B3']
     erb :scoutmaster	
   end
-  get '/im' do
-      erb :im
-  end 
   get '/future' do
     settings.mongo_db.find({futurematch: true}).first.to_json
   end
@@ -184,7 +177,6 @@ class ScoutingProject < Sinatra::Base
   get '/events/:key.json' do
     settings.mongo_db.find({event: params['key'], matches: {'$exists' => true}}).to_a[0].to_json
   end
-
 
   get '/scheduler' do
     @events = settings.tba.events

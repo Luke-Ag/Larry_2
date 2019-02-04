@@ -1,10 +1,7 @@
-<div id="app6">
-    <center>
-    <input v-model="message">
-    <button type="button" onClick="idk()" style="margin-top:40px" class="btn btn-dark btn-block">Test</button>
-    </center>
-</div>
-<script>
+<div class="row" id="app6">
+    <button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
+    <input v-model="message" style="width: 100%;margin:10px;">
+    <script>
 var app6 = new Vue({
     el: '#app6',
     data: {
@@ -13,15 +10,15 @@ var app6 = new Vue({
 })
 var client;
 $(function() {
-    client = new Faye.Client('http://vps.boilerinvasion.org:9292/faye');
+    client = new Faye.Client('/faye');
 });
 function idk() {
     var publication = client.publish('/result/red', {text: app6.message });
-
     publication.then(function() {
         alert('Message received by server!');
     }, function(error) {
         alert('There was a problem: ' + error.message);
     });
+    submit();
 }
-</script>
+    </script>

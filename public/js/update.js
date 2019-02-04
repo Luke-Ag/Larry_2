@@ -68,36 +68,15 @@ function submit() {
                 payload[el.data('datapoint')] = el.html();
             }
         });
+        if(set.filter('[data-start]').length > 0) {
+            payload['startPos'] = set.filter('[data-start]').hasClass('btn-success') ? '0' : '1';
+        }
+        if(set.filter('[data-auto]').length > 0) {
+            payload['sandComp'] = set.filter('[data-auto]').hasClass('btn-success') ? '0' : '1';
+        }
         if(set.filter('[data-comment]').length > 0) {
             payload['Comment'] = set.filter('[data-comment]').val();
         }
-        if(set.filter('[data-cross]').length > 0) {
-            payload['auto-cross'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '-';
-        }
-        if(set.filter('[data-vault]').length > 0) {
-            payload['vault'] = set.filter('[data-vault]').hasClass('btn-success') ? 'Y' : 'n';
-        }
-        if(set.filter('[data-switch]').length > 0) {
-            payload['switch'] = set.filter('[data-switch]').hasClass('btn-success') ? 'Y' : 'n'; 
-        }
-        if(set.filter('[data-scale]').length > 0) {
-            payload['scale'] = set.filter('[data-scale]').hasClass('btn-success') ? 'Y' : 'n';
-        }
-        if(set.filter('[data-oswitch]').length > 0) {
-            payload['oppenent switch'] = set.filter('[data-oswitch]').hasClass('btn-success') ? 'Y' : 'n'; 
-        }
-        if(set.filter('[data-def]').length > 0) {
-            payload['defense'] = set.filter('[data-def]').hasClass('btn-success') ? 'Y' : 'n';
-        }
-        if(set.filter('[data-climb]').length > 0) {
-            payload['climb'] = set.filter('[data-climb]').hasClass('btn-success') ? 'Climb' : (set.filter('[data-ramp]').hasClass('btn-success') ? 'Ramp' : ( set.filter('[data-rampbot]').hasClass('btn-success') ? 'Rampbot' : (set.filter('[data-climbrampbot]').hasClass('btn-success') ? 'both' : '-')));
-        }
-        if(set.filter('[data-driver]').length > 0) {
-            payload['driver-rating'] = set.filter('[data-driver]').hasClass('btn-success') ? ':)' : (set.filter('[data-driver1]').hasClass('btn-success') ? ':(' : 'No Ans');
-                }
-                payload['comment'] = set.filter('textarea').val();
-                parts.push(JSON.stringify(payload));
-                });
         $.post('/form', {payload1: parts[0], payload2: parts[1], payload3: parts[2], payload4: parts[3], payload5: parts[4], payload6: parts[5]}, function(e) {
             faye.publish('/submit', {color: color, teams: teamnos})
                 location.reload();
