@@ -84,37 +84,27 @@ function submit() {
         dpNames.forEach(function(n) {
             payload[n] = '-';
         });
-        if(set.filter('[startPos]').length > 0) {
-            payload['StartPos'] = set.filter('[startPos]').hasClass('btn-success') ? '0' : '1';
-        }
-        if(set.filter('[sandComp]').length > 0) {
-            payload['SandComp'] = set.filter('[sandComp]').hasClass('btn-success') ? '0' : '1';
-        }
-        if(set.filter('[data-cross]').length > 0) {
-            payload['Defense'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '0';
-        }
         if(set.filter('[data-comment]').length > 0) {
             payload['Comment'] = set.filter('[data-comment]').val();
         }
-        if(set.filter('[data-cross]').length > 0) {
-            payload['Landing'] = set.filter('[data-satartleft]').hasClass('btn-success') ? '0' : (set.filter('[data-satartmiddle]').hasClass('btn-success') ? '1' : '2');
-        }
-        if(set.filter('[data-cross]').length > 0) {
-            payload['Rating'] = set.filter('[data-startleft]').hasClass('btn-success') ? '0' : (set.filter('[data-startmiddle]').hasClass('btn-success') ? '1' : '2');
-                }
-                payload['comment'] = set.filter('textarea').val();
-                parts.push(JSON.stringify(payload));
-                });
-        $.post('/form', {payload1: parts[0], payload2: parts[1], payload3: parts[2], payload4: parts[3], payload5: parts[4], payload6: parts[5]}, function(e) {
-            faye.publish('/submit', {color: color, teams: teamnos})
-                location.reload();
-        });
-        client.publish('/results', {text: 'Submit'});
+        payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success') ? '2' : '0');
+        payload['Rating'] = set.filter('[data-mid]').hasClass('btn-success') ? '1' : (set.filter('[data-rit]').hasClass('btn-success') ? '2' : '0');
+        payload['Defense'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '0';
+        payload['StartPos'] = set.filter('[st-left]').hasClass('btn-success') ? '1' : '0';
+        payload['SandComp'] = set.filter('[sit-left]').hasClass('btn-success') ? '1' : '0';
+        payload['comment'] = set.filter('textarea').val();
+        parts.push(JSON.stringify(payload));
+    });
+    $.post('/form', {payload1: parts[0], payload2: parts[1], payload3: parts[2], payload4: parts[3], payload5: parts[4], payload6: parts[5]}, function(e) {
+        faye.publish('/submit', {color: color, teams: teamnos})
+            location.reload();
+    });
+    client.publish('/results', {text: 'Submit'});
 }
 
 
 
-</script>
+    </script>
     <style>
 .inputy {
     background-color:<%= @color == 'red' ? '#FFD0F0' : '#CFFFFF' %>
@@ -192,8 +182,8 @@ function submit() {
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "461"}%>
-                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'sandComp',datas: "sandComp",name1: "Auto",name2: "Teleop",teamid: "461"}%>
-                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'startPos',datas: "startPos",name1: "Level 1",name2: "Level 2",teamid: "461"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datas: "sit-left",datapoint: 'sandComp',name1: "Auto",name2: "Teleop",teamid: "461"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datas: "st-left",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "461"}%>
                                             <%= partial :button2, locals: {label: "Hth Good", id: 'hatch-placed',teamid: "461"}%>
                                             <%= partial :button2, locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "461"}%>
                                             <%= partial :button2, locals: {label: "Crg Good", id: 'cargo-placed',teamid: "461"}%>
@@ -201,8 +191,8 @@ function submit() {
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial :name, locals: {name: "Name",teamid: "462"}%>
-                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'sandComp',datas: "sandComp",name1: "Auto",name2: "Teleop",teamid: "462"}%>
-                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'startPos',datas: "startPos",name1: "Level 1",name2: "Level 2",teamid: "462"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datas: "sit-left",datapoint: 'sandComp',name1: "Auto",name2: "Teleop",teamid: "462"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datas: "st-left",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "462"}%>
                                             <%= partial :button2, locals: {label: "Hth Good", id: 'hatch-placed',teamid: "462"}%>
                                             <%= partial :button2, locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "462"}%>
                                             <%= partial :button2, locals: {label: "Crg Good", id: 'cargo-placed',teamid: "462"}%>
@@ -210,8 +200,8 @@ function submit() {
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial :name, locals: {name: "Name",teamid: "463"}%>
-                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'sandComp',datas: "sandComp",name1: "Auto",name2: "Teleop",teamid: "463"}%>
-                                            <%= partial :doublebutsinglechoose, locals: {datapoint: 'startPos',datas: "startPos",name1: "Level 1",name2: "Level 2",teamid: "463"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datas: "sit-left",datapoint: 'sandComp',name1: "Auto",name2: "Teleop",teamid: "463"}%>
+                                            <%= partial :doublebutsinglechoose, locals: {datas: "st-left",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "463"}%>
                                             <%= partial :button2, locals: {label: "Hth Good", id: 'hatch-placed',teamid: "463"}%>
                                             <%= partial :button2, locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "463"}%>
                                             <%= partial :button2, locals: {label: "Crg Good", id: 'cargo-placed',teamid: "463"}%>
@@ -256,20 +246,20 @@ function submit() {
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "461"}%>
-                                            <%= partial :rating, locals: {name1: "PoT",name2: "BoW",name3: "GgG",teamid: "461"}%>
-                                            <%= partial :rating, locals: {name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "461"}%>
+                                            <%= partial :rating, locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "461"}%>
+                                            <%= partial :rating, locals: {datass: "data-rite",datas: "data-mide",name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "461"}%>
                                             <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "461"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "462"}%>
-                                            <%= partial :rating, locals: {name1: "PoT",name2: "BoW",name3: "GgG",teamid: "462"}%>
-                                            <%= partial :rating, locals: {name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "462"}%>
+                                            <%= partial :rating, locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "462"}%>
+                                            <%= partial :rating, locals: {datass: "data-rite",datas: "data-mide",name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "462"}%>
                                             <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial :name, locals: {name: "Name",teamid: "463"}%>
-                                            <%= partial :rating, locals: {name1: "PoT",name2: "BoW",name3: "GgG",teamid: "463"}%>
-                                            <%= partial :rating, locals: {name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "463"}%>
+                                            <%= partial :rating, locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "463"}%>
+                                            <%= partial :rating, locals: {datass: "data-rite",datas: "data-mide",name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "463"}%>
                                             <%= partial :comments, locals: {datapoint: 'comment', name: "Name", teamid: "463"}%>
                                         </div>
                                     </div>
@@ -278,7 +268,6 @@ function submit() {
                             <div class="row" id="app6">
                                 <button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
                                 <input v-model="message" style="width: 100%;margin:10px;">
-
                             </div>
                         </div>
                     </div>

@@ -1,18 +1,9 @@
 function sortTable(f,n){
-    var rows = $('#mytable tbody  tr').get();
+    var rows = $('#trend tbody  tr').get();
 
     rows.sort(function(a, b) {
 
-        var A = getVal(a);
-        var B = getVal(b);
 
-        if(A < B) {
-            return -1*f;
-        }
-        if(A > B) {
-            return 1*f;
-        }
-        return 0;
     });
 
     function getVal(elm){
@@ -24,18 +15,18 @@ function sortTable(f,n){
     }
 
     $.each(rows, function(index, row) {
-        $('#mytable').children('tbody').append(row);
+        $('#trend').children('tbody').append(row);
     });
 }
-var f_sl = 1;
 var f_nm = 1;
-$("#sl").click(function(){
-    f_sl *= -1;
-    var n = $(this).prevAll().length;
-    sortTable(f_sl,n);
-});
+var f_hp = 1;
 $("#nm").click(function(){
     f_nm *= -1;
     var n = $(this).prevAll().length;
     sortTable(f_nm,n);
+});
+$("#hp").click(function(){
+    f_hp *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_hp,n);
 });

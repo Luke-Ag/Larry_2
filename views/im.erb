@@ -1,11 +1,26 @@
-<div class="row" id="app6">
+<script src="/faye/faye.js"></script>
+<script src="/js/vue.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script>
+var client;
+$(function() {
+    client = new Faye.Client('/faye');
+    client.subscribe('/result/ima/*', function(message) {
+                               window.alert(message.text);
+                               console.log(message);
+                               })});
+</script>
+<div class="row" id="im" align="center">
+    <input v-model="message" placeholder="Larrage" style="margin:10px;">
     <button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
-    <input v-model="message" style="width: 100%;margin:10px;">
-    <script>
-var app6 = new Vue({
-    el: '#app6',
+</div>
+<script>
+var im = new Vue({
+    el: '#im',
     data: {
-        message: "test1"
+        message: "oof"
     }
 })
 var client;
@@ -13,12 +28,12 @@ $(function() {
     client = new Faye.Client('/faye');
 });
 function idk() {
-    var publication = client.publish('/result/red', {text: app6.message });
+var publication = client.publish('/result/ima/<%= @user %>', {text: im.message });
+
     publication.then(function() {
         alert('Message received by server!');
     }, function(error) {
         alert('There was a problem: ' + error.message);
-    });
-    submit();
-}
-    </script>
+        });
+        }
+</script>

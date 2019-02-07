@@ -4,33 +4,91 @@
         <link rel="stylesheet" href="css/trending.css"></link>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+        <script src="js/vue.js"></script>
     </head>
     <body>
-        <table id="mytable"><thead>
+    <script type="text/x-template" id="trending">
+        <table>
+            <thead>
                 <tr>
-                    <th id="sl">S.L.</th>
-                    <th id="nm">name</th>
+                    <th v-for="h in columns" @click="sortBy(h)" :class="{ active: sortH == h }">{{ h | capitalize}} <span class="arrow" :class=""></span></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Ronaldo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Messi</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Ribery</td>
-                </tr>
-                <tr>
-                    <td>20</td>
-                    <td>Bale</td>
+                <tr v-for="r in stats">
+                    <td v-for="c in headers">
+                        {{r[c]}}
+                    </td>
                 </tr>
             </tbody>
+            <p>{{order.join(', ')}}</p>
         </table>
-    </body>
-    <script src="js/trending.js"></script>
+        </script>
+        </body>
+    <script>
+Vue.component('trending', {
+    template: '#trending',
+    props: {
+        data: Array,
+        columns: Array,
+        filterH: String
+    },
+    data: function () {
+        var sortOrders= {};
+        this.columns.forEach(function (h) {
+            sortOrders[h] = 1
+        })
+        return {
+            sortH: '',
+            sortOrders: sortOrders
+        }
+    },
+    computed: {
+        filteredData: function () {
+            var sortH = this.sortH
+            var filterH = this.filterH && this.filterH.toLowerCase()
+            var order = this.sortOrders[sortKey] || 1
+            var data = this.data
+            if (filterH) {
+                data = data.filter(function (row) {
+                    return Object.keys(row).some(function (h) {
+                        return String(row[h]).toLowerCase().indexOf(filterH) > -1
+                    })
+                })
+            }
+            if (sortH) {
+                data = data.slice().sort(function (a, b) {
+                    a = a[sortH]
+                    b = b[sortH]
+                    return (a === b ? 0 : a > b ? 1 : -1) * order
+                })
+            }
+            return data
+        }
+    },
+    filters: {
+        capitalize: function (str) {
+            return str.chatAt(0).toUpperCase() + str.slice(1)
+        }
+    },
+    methods: {
+        sortBy: function resort(h) {
+            console.log(h);
+            this.sortH = h
+                this.sortOrders[h] = this.sortOrders[h] * -1
+        }
+    }
+})
+var trend = new Vue({
+    el: '#trend',
+    data: {
+        searchQuery: '',
+        columns: ['team', 'hatchplay'],
+        gdata: [
+        { team: '461', hatchplay: 12 },
+        { team: '462', hatchplay: 1 }
+        ]
+    }
+})
+    </script>
 </html>

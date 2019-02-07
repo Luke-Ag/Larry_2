@@ -1,13 +1,11 @@
 thead {color:green;}
 tbody {color:blue;}
 tfoot {color:red;}
-table,th,td
-{
-    border:1px solid black;
+table,th,td {
+    font-size: 125%
 }
 th:hover{
     cursor:pointer;
     background:#AAA;
 
 }
-
