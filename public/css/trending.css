@@ -2,7 +2,6 @@ thead {color:green;}
 tbody {color:blue;}
 tfoot {color:red;}
 table,th,td {
-    font-size: 125%
 }
 th:hover{
     cursor:pointer;

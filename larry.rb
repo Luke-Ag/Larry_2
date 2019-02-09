@@ -41,9 +41,16 @@ class ScoutingProject < Sinatra::Base
         #@matches = JSON.parse(File.read('./stuff.json'))
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
         @teams = {}
-        @matches.each do |match|
-            @teams[match['team'].to_i] ||= []
-            @teams[match['team'].to_i] << match
+        t = @matches.map{ |r| r[:team]}.uniq 
+        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' }
+        t.each do |team|
+            @teams[team] ||= {'team' => team}
+            o = @matches.select{ |r| r[:team] == team }.count.to_f
+            @keys.each do |k|
+                @teams[team][k] = @matches.select{ |r| r[:team] == team }
+                                          .map{ |r| r[k]}
+                                          .reduce(0){ |sum, n| sum + (n.to_i || 0)} / o
+            end
         end
         erb :trending
     end
