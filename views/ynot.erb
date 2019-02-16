@@ -7,48 +7,64 @@
         <script src="js/bootstrap.min.js"></script>
         <title>Larry's Trapdoor</title>
     </head>
-<style>
-.button {
-    padding: 20px;
-    cursor: pointer;
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    color: black;
-    border: none;
+    <style>
+.btn-light {
+    background-color: #f2eef0;
+    border: none
 }
-</style>
-<script>
-function trend() {
-    window.location = "/trend";
-}
-function compress() {
-    window.location = "/export";
-}
-function imporr() {
-    window.location = "/import";
-}
-function home() {
-    window.location = "/";
-}
-</script>
+    </style>
     <body>
         <div class="container-fluid" style="margin:0;padding:0">
-            <div class="row" style="background-color:#0d264f;height:100VH;min-width:100%">
-                <div class="col-sm-12">
-                    <div class="row" style="padding: 8VH;">
-                        <button class="button" onClick="trend()">Trend Data</button>
-                    </div>
-                    <div class="row" style="padding: 8VH;">
-                        <button class="button" onClick="home()">Home</button>
-                    </div>
-                    <div class="row" style="padding: 8VH;">
-                        <button class="button" onClick="compress()">Export</button>
-                    </div>
-                    <div class="row" style="padding: 8VH;">
-                        <button class="button" onClick="imporr()">Import</button>
-                    </div>
+            <div class="row">
+                <div class="col-sm-1" style="text-align:center">
+                    <a class="btn btn-light" style="margin-top:12px;" href="/">Back</a>
+                </div>
+                <div class="col-sm-10">
+                </div>
+                <div class="col-sm-1">
+                    <img src="/img/logo.png" style="margin-top:12px;" width="64px"></img>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" href="/trend">Trending Data</a>
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" href="/export">Export Data</a>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/scoutmaster">Scoutmaster</a>
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/import">Import Data</a>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/im">Instant Messanger</a>
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/charts">Charts</a>
+                </div>
+                <div class="col-sm-1">
                 </div>
             </div>
         </div>

@@ -14,22 +14,14 @@ class ScoutingProject < Sinatra::Base
     get '/larrage' do
         erb :im
     end
+    get '/adrian' do
+        erb :zenith
+    end
+    get '/charts' do
+        erb :chart
+    end
     get '/im' do
         erb :im
-    end
-    post '/im' do
-    end
-    put '/im/:id' do
-        @user = User.find_by_id(params[:id])
-
-        if @user
-            @user.name = "Luke"
-            @user.save
-        else
-            halt 404, "User not found"
-        end
-
-        200
     end
     get '/test' do
         erb :test
@@ -38,13 +30,12 @@ class ScoutingProject < Sinatra::Base
         erb :home
     end
     get '/trend' do
-        #@matches = JSON.parse(File.read('./stuff.json'))
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
         @teams = {}
         t = @matches.map{ |r| r[:team]}.uniq 
         @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' }
         t.each do |team|
-            @teams[team] ||= {'team' => team}
+            @teams[team] ||= {'team' => team.to_s.rjust(4, '0')}
             o = @matches.select{ |r| r[:team] == team }.count.to_f
             @keys.each do |k|
                 @teams[team][k] = @matches.select{ |r| r[:team] == team }

@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="css/bootstrap.min.css"></link>
-        <link rel="stylesheet" href="css/toastr.min.css"></link>
-        <link rel="stylesheet" href="css/global.css"></link>
-        <link rel="stylesheet" href="css/carousel.css"></link>
-        <link rel="icon" href="img/favicon.jpg" type="image/x-icon"/>
-        <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon"/>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/toastr.min.js"></script>
-        <script src="js/carousel.js"></script>
-        <script src="js/counter.js"></script>
-        <script src="js/button.js"></script>
-        <script src="/faye/faye.js"></script>
-        <script src="js/vue.js"></script>
-        <script src="js/konami.min.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>    
     <script>
 function upDate() {
@@ -42,6 +25,7 @@ function upDate() {
         }    
         $('#matchNumber').val(data.MN);
         $('#eventID').val(data.EV);
+
         $('[data-team-button=1]').click();
         $('[data-team-button=2]').click();
         $('[data-team-button=3]').click();
@@ -87,12 +71,14 @@ function submit() {
         if(set.filter('[data-comment]').length > 0) {
             payload['Comment'] = set.filter('[data-comment]').val();
         }
-        payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success') ? '2' : '0');
-        payload['Rating'] = set.filter('[data-mid]').hasClass('btn-success') ? '1' : (set.filter('[data-rit]').hasClass('btn-success') ? '2' : '0');
-        payload['Defense'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '0';
-        payload['StartPos'] = set.filter('[st-left]').hasClass('btn-success') ? '1' : '0';
-        payload['SandComp'] = set.filter('[sit-left]').hasClass('btn-success') ? '1' : '0';
-        payload['comment'] = set.filter('textarea').val();
+        if (set.filter('[team]').length > 0) {
+            payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success') ? '2' : '0');
+            payload['Rating'] = set.filter('[data-mid]').hasClass('btn-success') ? '1' : (set.filter('[data-rit]').hasClass('btn-success') ? '2' : '0');
+            payload['Defense'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '0';
+            payload['StartPos'] = set.filter('[st-left]').hasClass('btn-success') ? '1' : '0';
+            payload['SandComp'] = set.filter('[sit-left]').hasClass('btn-success') ? '1' : '0';
+            payload['comment'] = set.filter('textarea').val();
+        }
         parts.push(JSON.stringify(payload));
     });
     $.post('/form', {payload1: parts[0], payload2: parts[1], payload3: parts[2], payload4: parts[3], payload5: parts[4], payload6: parts[5]}, function(e) {
