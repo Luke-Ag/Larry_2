@@ -4,10 +4,6 @@ body {
 #thing, #thing2, #thing3 {
     height: 100vh
 }
-#buttons {
-    background-color:#D2D50A;
-    padding-top: 10vh;
-}
 #thing {
 	border-right: 6px solid black;
 }

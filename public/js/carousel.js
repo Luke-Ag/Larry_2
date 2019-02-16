@@ -1,5 +1,6 @@
 function qFunction() {
-    console.log($(indicator));
+    $(function() {
+        console.log($(indicator));
     $('.carousel').carousel('next');
     if ($('#indicator').hasClass('pre')) {
         $('#indicator').removeClass('pre');
@@ -18,8 +19,10 @@ function qFunction() {
         $('#indicator').addClass('pre');
         $('#indicator').html('Pre');
     }
+    });
 }
 function gqFunction() {
+    $(function() {
     $('.carousel').carousel('prev');
     if ($('#indicator').hasClass('pre')) {
         $('#indicator').removeClass('pre');
@@ -38,5 +41,5 @@ function gqFunction() {
         $('#indicator').addClass('tele');
         $('#indicator').html('Tele');
     }
+    });
 }
-

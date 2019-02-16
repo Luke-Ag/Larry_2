@@ -11,23 +11,24 @@ class ScoutingProject < Sinatra::Base
         set :mongo_db, db[:unnamedScoutingProject]
         set :tba, TheBlueAlliance.new
     end
+    before do
+        @config = settings.mongo_db.find({ 'config' => 'CONFIG!' }).first
+    end
+
     get '/larrage' do
         erb :im
     end
     get '/adrian' do
         erb :zenith
     end
-    get '/charts' do
-        erb :chart
-    end
     get '/im' do
         erb :im
     end
-    get '/test' do
-        erb :test
-    end
     get '/' do
         erb :home
+    end
+    get '/chart' do
+        erb :chart
     end
     get '/trend' do
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
@@ -120,7 +121,7 @@ class ScoutingProject < Sinatra::Base
 
     helpers do
         def partial(page, options={})
-            erb page, options.merge!(:layout => false)
+            erb page.to_sym, options.merge!(:layout => false)
         end
     end
 
@@ -134,6 +135,19 @@ class ScoutingProject < Sinatra::Base
             end
         end
         "OK"
+    end
+
+    get '/config' do
+        erb :config
+    end
+
+    post "/config" do
+        config = {}
+        config['config'] = 'CONFIG!'
+        config['title'] = params['title']
+        puts config.to_yaml
+        settings.mongo_db.update_one( {'config' => 'CONFIG!' }, config, upsert: true)
+        'OK'
     end
 
     get '/all' do
