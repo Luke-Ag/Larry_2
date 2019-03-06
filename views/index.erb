@@ -79,14 +79,11 @@ function submit() {
         });
         if(set.filter('[data-comment]').length > 0) {
             payload['Comment'] = set.filter('[data-comment]').val();
-        }
-        if (set.filter('[team]').length > 0) {
-            payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success') ? '2' : '0');
-            payload['Rating'] = set.filter('[data-mid]').hasClass('btn-success') ? '1' : (set.filter('[data-rit]').hasClass('btn-success') ? '2' : '0');
+            payload['Rating'] = set.filter('[data-mid]').hasClass('btn-success') ? '1' : (set.filter('[data-rit]').hasClass('btn-success')) ? '2' : '0';
             payload['Defense'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '0';
-            payload['StartPos'] = set.filter('[st-left]').hasClass('btn-success') ? '1' : '0';
-            payload['SandComp'] = set.filter('[sit-left]').hasClass('btn-success') ? '1' : '0';
-            payload['comment'] = set.filter('textarea').val();
+            payload['StartPos'] = set.filter('[st-mid]').hasClass('btn-success') ? '1' : '0';
+            payload['SandComp'] = set.filter('[sit-mid]').hasClass('btn-success') ? '1' : (set.filter('[sit-left]').hasClass('btn-success')) ? '2' : '0';
+            payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success')) ? '2' : (set.filter('[data-ritee]').hasClass('btn-success')) ? '3' : '0';
         }
         parts.push(JSON.stringify(payload));
     });
@@ -96,9 +93,6 @@ function submit() {
     });
     client.publish('/results', {text: 'Submit'});
 }
-
-
-
     </script>
     <style>
 .inputy {
@@ -107,6 +101,11 @@ function submit() {
 .inputt {
     background-color:<%= @color != 'red' ? '#FFD0F0' : '#CFFFFF' %>
 }
+    #pid {
+        position:absolute;
+        bottom:0px;
+        min-width:100%;
+    }
     </style>
     <body style="height:500px;">
         <div class="container-fluid">
@@ -123,10 +122,6 @@ function submit() {
                                                 <input type="text" data-teamid="461" value="461" data-team-field="1" class="inputy"></input>
                                                 <button class="btn btn-info" data-teamid="461" onClick="upDateteamnum(this)" data-team-button="1">Update</button>
                                             </div>
-                                            <div>
-                                                <input type="text" data-teamid="464" value="464" data-team-field="4" class="inputt"></input>
-                                                <button class="btn btn-info" data-teamid="464" onClick="upDateteamnum(this)" data-team-button="4">Update</button>
-                                            </div>
                                             <br><br>
                                             <div style="height:195px;width:295px;background-color:<%= @color == 'red' ? '#CF000F' : '#3F51B5' %>">
                                                 <center><h3 style="color:white;text-align:center;padding-top:83px"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></center></h3>
@@ -137,10 +132,6 @@ function submit() {
                                             <div>
                                                 <input type="text" data-teamid="462" value="462" data-team-field="2" class="inputy"></input>
                                                 <button class="btn btn-info" data-teamid="462" onClick="upDateteamnum(this)" data-team-button="2">Update</button>
-                                            </div>
-                                            <div>
-                                                <input type="text" data-teamid="465" value="465" data-team-field="5" class="inputt"></input>
-                                                <button class="btn btn-info" data-teamid="465" onClick="upDateteamnum(this)" data-team-button="5">Update</button>
                                             </div>
                                             <br><br>
 
@@ -158,10 +149,6 @@ function submit() {
                                                 <input type="text" data-teamid="463" value="463" data-team-field="3" class="inputy"></input>
                                                 <button class="btn btn-info" data-teamid="463" onClick="upDateteamnum(this)" data-team-button="3">Update</button>
                                             </div>
-                                            <div>
-                                                <input type="text" data-teamid="466" value="466" data-team-field="6" class="inputt"></input>
-                                                <button class="btn btn-info" data-teamid="466" onClick="upDateteamnum(this)" data-team-button="6">Update</button>
-                                            </div>
                                             <br><br>
                                             <div style="height:195px;width:295px;background-color:<%= @color == 'red' ? '#CF000F' : '#3f51b5' %>">
                                                 <h3 style="color:white;text-align:center;padding-top:83px;"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></h3>
@@ -177,8 +164,8 @@ function submit() {
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
-                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "sit-left",datapoint: 'sandComp',name1: "Auto",name2: "Teleop",teamid: "461"}%>
-                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-left",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "461"}%>
+                                            <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "461"}%>
+                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "461"}%>
                                             <%= partial 'partial/button2', locals: {label: "Hth Good", id: 'hatchplaced',teamid: "461"}%>
                                             <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "461"}%>
                                             <%= partial 'partial/button2', locals: {label: "Crg Good", id: 'cargo-placed',teamid: "461"}%>
@@ -186,8 +173,8 @@ function submit() {
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
-                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "sit-left",datapoint: 'sandComp',name1: "Auto",name2: "Teleop",teamid: "462"}%>
-                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-left",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "462"}%>
+                                            <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "462"}%>
+                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "462"}%>
                                             <%= partial 'partial/button2', locals: {label: "Hth Good", id: 'hatchplaced',teamid: "462"}%>
                                             <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "462"}%>
                                             <%= partial 'partial/button2', locals: {label: "Crg Good", id: 'cargo-placed',teamid: "462"}%>
@@ -195,8 +182,8 @@ function submit() {
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
-                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "sit-left",datapoint: 'sandComp',name1: "Auto",name2: "Teleop",teamid: "463"}%>
-                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-left",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "463"}%>
+                                            <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "463"}%>
+                                            <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "463"}%>
                                             <%= partial 'partial/button2', locals: {label: "Hth Good", id: 'hatchplaced',teamid: "463"}%>
                                             <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "463"}%>
                                             <%= partial 'partial/button2', locals: {label: "Crg Good", id: 'cargo-placed',teamid: "463"}%>
@@ -215,21 +202,24 @@ function submit() {
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "461"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "461"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "461"}%>
-                                            <%= partial 'partial/button', locals: {name: "Defense?",  teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "461"}%>
                                         </div> 
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "462"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "462"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "462"}%>
-                                            <%= partial 'partial/button', locals: {name: "Defense?", teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "463"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "463"}%>
                                             <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "463"}%>
-                                            <%= partial 'partial/button', locals: {name: "Defense?", teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "463"}%>
                                         </div>
                                     </div>
                                 </div>
@@ -242,19 +232,22 @@ function submit() {
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
                                             <%= partial 'partial/rating', locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "461"}%>
-                                            <%= partial 'partial/rating', locals: {datass: "data-rite",datas: "data-mide",name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "461"}%>
+                                            <%= partial 'partial/climb', locals: {datasss: "data-ritee",datass: "data-rite",datas: "data-mide",name1: "L 0",name2: "L 1",name3: "L 2",name4: "L 3",teamid: "461"}%>
+                                            <%= partial 'partial/button', locals: {name: "Defense?",  teamid: "461"}%>
                                             <%= partial 'partial/comments', locals: {datapoint: 'comment', name: "Name", teamid: "461"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
                                             <%= partial 'partial/rating', locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "462"}%>
-                                            <%= partial 'partial/rating', locals: {datass: "data-rite",datas: "data-mide",name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "462"}%>
+                                            <%= partial 'partial/climb', locals: {datasss: "data-ritee",datass: "data-rite",datas: "data-mide",name1: "L 0",name2: "L 1",name3: "L 2",name4: "L 3",teamid: "462"}%>
+                                            <%= partial 'partial/button', locals: {name: "Defense?", teamid: "462"}%>
                                             <%= partial 'partial/comments', locals: {datapoint: 'comment', name: "Name", teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
                                             <%= partial 'partial/rating', locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "463"}%>
-                                            <%= partial 'partial/rating', locals: {datass: "data-rite",datas: "data-mide",name1: "Lvl 1",name2: "Lvl 2",name3: "Lvl 3",teamid: "463"}%>
+                                            <%= partial 'partial/climb', locals: {datasss: "data-ritee",datass: "data-rite",datas: "data-mide",name1: "L 0",name2: "L 1",name3: "L 2",name4: "L 3",teamid: "463"}%>
+                                            <%= partial 'partial/button', locals: {name: "Defense?", teamid: "463"}%>
                                             <%= partial 'partial/comments', locals: {datapoint: 'comment', name: "Name", teamid: "463"}%>
                                         </div>
                                     </div>
@@ -262,7 +255,7 @@ function submit() {
                             </div>
                             <div class="row" id="app6">
                                 <button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
-                                <input v-model="message" style="width: 100%;margin:10px;">
+                                <input v-model="message" style="display:none;width: 100%;margin:10px;">
                             </div>
                         </div>
                     </div>
@@ -295,7 +288,7 @@ function idk() {
     var publication = client.publish('/result/red', {text: app6.message });
 
     publication.then(function() {
-        alert('Message received by server!');
+        alert('Submitted');
     }, function(error) {
         alert('There was a problem: ' + error.message);
     });

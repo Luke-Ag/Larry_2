@@ -29,12 +29,5 @@ $(function() {
         }
     });
     $('.carousel').carousel('pause');
-    $(document).on('keyup',
-        Konami.code(function() {
-            setTimeout(function(){
-                mit();
-            }, 250); 
-        })
-    );
 });
 
