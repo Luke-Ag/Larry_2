@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%= partial 'partial/beg', locals: {title: "Trending"}%>
+        <%= partial 'partial/beg', locals: {title: "Compare"}%>
         <link rel="stylesheet" href="css/trending.css"></link>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
@@ -35,10 +35,14 @@
             <form id="search" align="center">
                 Search <input name="query" v-model="searchQuery">
             </form>
+            <form id="eliminate" align="center">
+                Search <input name="lquery" v-model="lQuery">
+            </form>
             <demo-grid
                                            :data="gridData"
                                            :columns="gridColumns"
-                                           :filter-key="searchQuery">
+                                           :filter-key="searchQuery"
+                                           :filter-key="lQuery">
             </demo-grid>
         </div>
     </body>
@@ -99,9 +103,10 @@ var demo = new Vue({
     el: '#demo',
     data: {
         searchQuery: '',
+        lQuery: '',
         gridColumns: ['team', <%= @keys.map{ |w| "'#{w}'"}.join(', ') %>],
         gridData: <%= @teams.values.to_json  %>
-    }
+}
 })
     </script>
 </html>

@@ -1,4 +1,18 @@
-<%= partial 'partial/beg', locals: {title: @config['title']}%>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="css/toastr.min.css"></link>
+    <link rel="stylesheet" href="css/global.css"></link>
+    <link rel="icon" href="img/favicon.jpg" type="image/x-icon"/>
+    <link rel="shortcut icon" href="img/favicon.jpg" type="image/x-icon"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="/faye/faye.js"></script>
+    <script src="js/vue.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title><%= @config['title'] %></title>
+</head>
 <form action="/config" method="POST">
     <input name="title" type="text" placeholder="Title" />
 

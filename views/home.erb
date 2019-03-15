@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <%= partial 'partial/beg', locals: {title: "Larry"}%>
+    <%= partial 'partial/beg', locals: {title: "Scouting"}%>
     <style>
-.btn-danger, .btn-warning {
-    background-color: #ffd500
+.btn-warning, .btn-warn {
+    background-color: #feae0a;
+    border-color: #feae0a;
 }
-.btn-primary {
-    background-color: #f8f9fa
-}
-.home {
- margin-top:10vh;
- margin-bottom:10vh;
- padding-top:29vh;
- padding-bottom:29vh;
+.ex {
+    padding-top: 37vh;
+    padding-bottom: 37vh;
 }
     </style>
     <body>
-        <div class="container-fluid" style="margin:0;padding:0">
-            <div class="row" style="padding-left:10px">
-                <div class="col-sm-4">
-                    <a class="btn btn-danger btn-lg btn-block home" style="color:black" href="/red">Red Alliance</a>
+        <div class="container-fluid" style="padding-top:2vh;padding-bottom:2vh">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="btn-warn btn-lg btn-block" style="text-align:center">Hi</span>
+                </div> 
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-5">
+                    <a class="btn btn-danger btn-lg btn-block ex" role="button" href="/red">Red Alliance</a>
+                </div> 
+                <div class="col-sm-2" style="text-align:center">
+                    <img src="/img/logo.png" style="margin-top:37vh" height="48px"></img>
                 </div>
-                <div class="col-sm-4">
-                    <a class="btn btn-primary btn-lg btn-block home" style="color:black" href="/blue">Blue Alliance</a>
-                </div>
-                <div class="col-sm-4">
-                    <a class="btn btn-warning btn-lg btn-block home" style="color:black" href="/ynot">Larry</a>
-                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-primary btn-lg btn-block ex" role="button" href="/blue">Blue Alliance</a>
+                </div> 
+            </div> 
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn btn-warning btn-lg btn-block" role="button" href="/ynot">Scouting Program</a>
+                </div> 
             </div>
         </div>
     </body>
