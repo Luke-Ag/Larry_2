@@ -27,8 +27,8 @@ class ScoutingProject < Sinatra::Base
     get '/' do
         erb :home
     end
-    get '/chart' do
-        erb :chart
+    get '/teams/:team' do
+        @man = settings.mongo_db.find({team: params['team']}).to_a.to_json
     end
     get '/compare' do
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}

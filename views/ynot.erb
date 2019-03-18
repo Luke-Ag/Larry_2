@@ -45,7 +45,7 @@
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" href="/chart">Chart Data</a>
+                    <a class="btn btn-dark btn-block btn-lg" href="#" style="padding:5px" onclick="teamgo()"><input style="text-align:center" placeholder="Teamnumber" id="teamnumber"></input></a>
                 </div>
                 <div class="col-sm-5">
                     <a class="btn btn-dark btn-block btn-lg" href="/compare">Compare</a>
@@ -111,4 +111,10 @@
             </div>
         </div>
     </body>
+    <script>
+function teamgo() {
+    location.replace("/teams/" + teamnumber.value);
+    console.log(teamnumber.value)
+}
+    </script>
 </html>
