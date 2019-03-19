@@ -1,0 +1,10 @@
+<%= partial 'partial/beg', locals: {title: @config['title']}%>
+<form action="/config" method="POST">
+    <input name="title" type="text" placeholder="Title" />
+
+    <button type="submit" > Go</button>
+</form>
+
+<pre>
+<%= @config.to_yaml %>
+</pre>

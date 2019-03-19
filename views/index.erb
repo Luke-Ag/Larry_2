@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<%= partial 'partial/beg', locals: {title: @color}%>
+	<link rel="stylesheet" href="css/carousel.css"></link>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/toastr.min.js"></script>
+	<script src="js/carousel.js"></script>
+	<script src="js/counter.js"></script>
+	<script src="js/button.js"></script>
+	<script src="/faye/faye.js"></script>
+	<script src="js/vue.js"></script>
+	<script>
+function upDate() {
+	$.get('/future', function(d) {
+		color = "<%= @color %>";
+		data = JSON.parse(d);
+		if ("<%= @color %>" == 'red') {
+			$('[data-team-field=1]').val(data.R1);
+			$('[data-team-field=2]').val(data.R2);
+			$('[data-team-field=3]').val(data.R3);
+			$('[data-team-field=4]').val(data.B1);
+			$('[data-team-field=5]').val(data.B2);
+			$('[data-team-field=6]').val(data.B3);
+		}
+		if ("<%= @color %>" == 'blue') {
+			$('[data-team-field=1]').val(data.B1);
+			$('[data-team-field=2]').val(data.B2);
+			$('[data-team-field=3]').val(data.B3);
+			$('[data-team-field=4]').val(data.R1);
+			$('[data-team-field=5]').val(data.R2);
+			$('[data-team-field=6]').val(data.R3);
+		}    
+		$('#matchNumber').val(data.MN);
+		$('#eventID').val(data.EV);
+
+		$('[data-team-button=1]').click();
+		$('[data-team-button=2]').click();
+		$('[data-team-button=3]').click();
+		$('[data-team-button=4]').click();
+		$('[data-team-button=5]').click();
+		$('[data-team-button=6]').click();
+	});
+}
+var parts=[];
+var teamnos=[];
+function submit() {
+	parts = [];
+	teamnos = [];
+	$('input[type=text][data-teamid]').toArray().map(function(e) {return $(e).data('teamid')}).forEach(function(teamNumber) {
+		console.log(teamNumber);
+		teamnos.push("" + $('.badge[data-teamid=' + teamNumber + ']').html());
+		payload = {};
+		payload['team'] = "" + $('.badge[data-teamid=' + teamNumber + ']').html();
+		console.log($('.badge[data-teamid=' + teamNumber + ']').html());
+		payload['match'] = $('#matchNumber').val();
+		set = $('[data-teamid=' + teamNumber + ']').filter(function(i, e) {
+			e = $(e);
+			if(e.val() == teamNumber) { return false; }
+			if(e.html() == "+" || e.html() == "-") { return false; }
+			e = $(e);
+			if(e.val() == teamNumber) { return false; }
+			if(e.html() == "+" || e.html() == "-") { return false; }
+			if(e.hasClass('badge')) { return false; }
+			if(e.hasClass('btn-info')) {return false;}
+			if(e.hasClass('nocount')) {return false;}
+			return true;
+		});
+		counters = set.filter('span');
+		$.each(counters, function(i, el) {
+			el = $(el);
+			payload[el.data('ctrId')] = el.html();
+		});
+		dps = set.filter('[data-datapoint]');
+		dpNames = dps.toArray().map(function(e) {return $(e).data('datapoint')}).filter(function(v, i, s) {return s.indexOf(v) === i});
+		dpNames.forEach(function(n) {
+			payload[n] = '-';
+		});
+		if(set.filter('[data-comment]').length > 0) {
+			payload['Comment'] = set.filter('[data-comment]').val();
+			payload['Rating'] = set.filter('[data-mid]').hasClass('btn-success') ? '1' : (set.filter('[data-rit]').hasClass('btn-success')) ? '2' : '0';
+			payload['Defense'] = set.filter('[data-cross]').hasClass('btn-success') ? '1' : '0';
+			payload['StartPos'] = set.filter('[st-mid]').hasClass('btn-success') ? '1' : '0';
+			payload['SandComp'] = set.filter('[sit-mid]').hasClass('btn-success') ? '1' : (set.filter('[sit-left]').hasClass('btn-success')) ? '2' : '0';
+			payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success')) ? '2' : (set.filter('[data-ritee]').hasClass('btn-success')) ? '3' : '0';
+		}
+		parts.push(JSON.stringify(payload));
+	});
+	$.post('/form', {payload1: parts[0], payload2: parts[1], payload3: parts[2], payload4: parts[3], payload5: parts[4], payload6: parts[5]}, function(e) {
+		faye.publish('/submit', {color: color, teams: teamnos})
+			location.reload();
+	});
+	client.publish('/results', {text: 'Submit'});
+}
+	</script>
+	<style>
+.inputy {
+	background-color:<%= @color == 'red' ? '#FFD0F0' : '#CFFFFF' %>
+}
+.inputt {
+	background-color:<%= @color != 'red' ? '#FFD0F0' : '#CFFFFF' %>
+}
+    #pid {
+	    position:absolute;
+	    bottom:0px;
+	    min-width:100%;
+    }
+	</style>
+	<body style="height:500px;">
+		<div class="container-fluid">
+			<div class="row">
+				<div id="carouselExampleControls" style="width:100%" class="carousel slide" data-ride="false" data-pause="true">
+					<div class="carousel-inner">
+						<div class="carousel-item active" style="padding:10px">
+							<div class="row">    
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
+											<div>
+												<input type="text" data-teamid="461" value="461" style="width:60%" data-team-field="1" class="inputy"></input>
+												<button class="btn btn-info" data-teamid="461" style="width:38%" onClick="upDateteamnum(this)" data-team-button="1">Update</button>
+											</div>
+											<br><br>
+											<div style="height:195px;width:100%;background-color:<%= @color == 'red' ? '#CF000F' : '#3F51B5' %>">
+												<center><h3 style="color:white;text-align:center;padding-top:83px"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></center></h3>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
+											<div>
+												<input type="text" data-teamid="462" value="462" style="width:60%" data-team-field="2" class="inputy"></input>
+												<button class="btn btn-info" data-teamid="462" style="width:38%" onClick="upDateteamnum(this)" data-team-button="2">Update</button>
+											</div>
+											<br><br>
+
+											<br>
+											Match #
+											<input class="form-control w-100 text-center" type="text" id="matchNumber" value="<%= @MN %>"></input>
+											<br>
+											Event ID
+											<input class="form-control w-100 text-center" type="text" id="eventID" value="<%= @EV %>"></input>
+											<br>
+											<div>
+												<%= partial 'zenith' %>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
+											<div>
+												<input type="text" data-teamid="463" value="463" style="width:60%" data-team-field="3" class="inputy"></input>
+												<button class="btn btn-info" data-teamid="463" style="width:38%" onClick="upDateteamnum(this)" data-team-button="3">Update</button>
+											</div>
+											<br><br>
+											<div style="height:195px;width:100%;background-color:<%= @color == 'red' ? '#CF000F' : '#3f51b5' %>">
+												<h3 style="color:white;text-align:center;padding-top:83px;"><%= @color == 'red' ? 'Red Alliance' : 'Blue Alliance' %></h3>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="carousel-item" style="padding:10px">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="row">
+										<%= partial 'partial/sandstorm', locals: {team: "461"}%>
+										<%= partial 'partial/sandstorm', locals: {team: "462"}%>
+										<%= partial 'partial/sandstorm', locals: {team: "463"}%>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="carousel-item" style="padding:10px">
+							<div class="row">    
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "461"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "461"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "461"}%>
+											<%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "461"}%>
+											<%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "461"}%>
+										</div> 
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "462"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "462"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "462"}%>
+											<%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "462"}%>
+											<%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "462"}%>
+										</div>
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "463"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "463"}%>
+											<%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "463"}%>
+											<%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "463"}%>
+											<%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "463"}%>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="carousel-item" style="padding:10px">
+							<div class="row">    
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
+											<%= partial 'partial/rating', locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "461"}%>
+											<%= partial 'partial/climb', locals: {datasss: "data-ritee",datass: "data-rite",datas: "data-mide",name1: "L 0",name2: "L 1",name3: "L 2",name4: "L 3",teamid: "461"}%>
+											<%= partial 'partial/button', locals: {name: "Defense?",  teamid: "461"}%>
+											<%= partial 'partial/comments', locals: {datapoint: 'comment', name: "Name", teamid: "461"}%>
+										</div>
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
+											<%= partial 'partial/rating', locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "462"}%>
+											<%= partial 'partial/climb', locals: {datasss: "data-ritee",datass: "data-rite",datas: "data-mide",name1: "L 0",name2: "L 1",name3: "L 2",name4: "L 3",teamid: "462"}%>
+											<%= partial 'partial/button', locals: {name: "Defense?", teamid: "462"}%>
+											<%= partial 'partial/comments', locals: {datapoint: 'comment', name: "Name", teamid: "462"}%>
+										</div>
+										<div class="col-sm-4">
+											<%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
+											<%= partial 'partial/rating', locals: {datass: "data-rit",datas: "data-mid",name1: "PoT",name2: "BoW",name3: "GgG",teamid: "463"}%>
+											<%= partial 'partial/climb', locals: {datasss: "data-ritee",datass: "data-rite",datas: "data-mide",name1: "L 0",name2: "L 1",name3: "L 2",name4: "L 3",teamid: "463"}%>
+											<%= partial 'partial/button', locals: {name: "Defense?", teamid: "463"}%>
+											<%= partial 'partial/comments', locals: {datapoint: 'comment', name: "Name", teamid: "463"}%>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" id="app6">
+								<button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
+								<input v-model="message" style="display:none;width: 100%;margin:10px;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="padding:10px;padding-top:20px" id="pid">
+				<div class="col-sm-2">
+					<button type="button" onclick="gqFunction()" class="btn btn-info btn-block">Prev</button>
+				</div>
+				<div class="col-sm-8">
+					<center><span id="indicator" class="pre badge badge-primary">Pre</span></center>
+				</div>
+				<div class="col-sm-2">
+					<button type="button" onclick="qFunction()" class="btn btn-info btn-block">Next</button>
+				</div>
+			</div>
+		</div>
+		<script>
+var app6 = new Vue({
+	el: '#app6',
+	data: {
+		message: "<%= @color %> submitted"
+	}
+});
+var client;
+$(function() {
+	client = new Faye.Client('/faye');
+	client.subscribe('/list/red', function(message) {
+		window.alert(message.text);
+		console.log(message);
+	})});
+function idk() {
+	var publication = client.publish('/result/red', {text: app6.message });
+	publication.then(function() {
+		alert('Submitted');
+	}, function(error) {
+		alert('There was a problem: ' + error.message);
+	});
+	submit();
+}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,13 @@
+body {
+	background-color: #8D8C90;
+}
+#thing, #thing2, #thing3 {
+    height: 100vh
+}
+#thing {
+	border-right: 6px solid black;
+}
+#thing3 {
+	border-left: 6px solid black;
+}
+

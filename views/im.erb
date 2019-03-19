@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<%= partial 'partial/beg', locals: {title: "Instant Messanger"}%>
+<div class="row" id="app6">
+	<input v-model="message" style="margin:10px;"><button type="button" onClick="sen()" class="btn btn-warning">Submit</button>
+</div>
+</html>
+<script>
+var app6 = new Vue({
+	el: '#app6',
+	data: {
+		message: "<%= @color %> submitted"
+	}
+});
+var client;
+$(function() {
+	client = new Faye.Client('/faye');
+	client.subscribe('/list/red', function(message) {
+		window.alert(message.text);
+		console.log(message);
+	})});
+function sen() {
+	var publication = client.publish('/list/red', {text: app6.message });
+}
+</script>
