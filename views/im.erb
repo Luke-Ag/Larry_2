@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 	<%= partial 'partial/beg', locals: {title: "Instant Messanger"}%>
 <div class="row" id="app6">
 	<input v-model="message" style="margin:10px;"><button type="button" onClick="sen()" class="btn btn-warning">Submit</button>
@@ -21,5 +22,39 @@ $(function() {
 	})});
 function sen() {
 	var publication = client.publish('/list/red', {text: app6.message });
+=======
+    <%= partial 'partial/beg', locals: {title: "Instant Messanger"}%>
+    <body>
+        <nav class="navbar navbar-light bg-light">
+              <a class="navbar-brand" href="#">Larrage</a>
+        </nav>
+        <div class="row" id="im" width="100%">
+            <div class="col-sm-12" style="padding:10px" width="90%">
+                <input v-model="message" placeholder="Larrage" >
+                <button type="button" onClick="idk()" class="btn btn-success"><img src="/img/1.svg"></img></button>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+var im = new Vue({
+    el: '#im',
+    data: {
+        message: ""
+    }
+})
+var client;
+$(function() {
+    client = new Faye.Client('/faye');
+});
+function idk() {
+    var publication = client.publish('/result/ima/luke', {text: im.message });
+
+    publication.then(function() {
+        alert('Message received by server!');
+    }, function(error) {
+        alert('There was a problem: ' + error.message);
+    });
+>>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
 }
 </script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 	<%= partial 'partial/beg', locals: {title: "zenith"}%>
 	<script>
 screen.orientation.lock("portrait-primary");
@@ -30,5 +31,43 @@ $(function() {
 	client.subscribe('/list/red')});
 function sen() {
 	var publication = client.publish('/result/red', {text: im.message });
+=======
+    <%= partial 'partial/beg', locals: {title: "zenith"}%>
+    <script>
+screen.orientation.lock("portrait-primary");
+    </script>
+    <body>
+        <div class="container-fluid">
+            <div class="row" id="im" width="100%">
+                <div
+ class="col-sm-12" style="text-align:center; padding:10px" width="90%">
+                    <input v-model="message" placeholder="Larrage" width="19" height="10px">
+                    <button type="button" onClick="idk()" class="btn btn-success"><img src="/img/1.svg" width="10px" height="12px"></img></button>
+                    <p style="font-size:120%">↑ Put your message here</p>
+                </div>
+            </div>
+        </div>	
+    </body>
+</html>
+<script>
+var im = new Vue({
+    el: '#im',
+    data: {
+        message: ""
+    }
+})
+var client;
+$(function() {
+    client = new Faye.Client('/faye');
+});
+function idk() {
+    var publication = client.publish('/result/ima/luke', {text: im.message });
+
+    publication.then(function() {
+        alert('Message received by server!');
+    }, function(error) {
+        alert('There was a problem: ' + error.message);
+    });
+>>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
 }
 </script>

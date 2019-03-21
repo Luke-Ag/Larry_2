@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+<<<<<<< HEAD
+=======
+        <%= partial 'partial/beg', locals: {title: "Trending"}%>
+>>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
         <link rel="stylesheet" href="css/trending.css"></link>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
@@ -24,7 +28,11 @@
             <tbody>
                 <tr v-for="entry in filteredData">
                     <td v-for="key in columns">
+<<<<<<< HEAD
                         {{ (typeof entry[key] === 'string') ? entry[key] : Math.round(entry[key] * 100) / 100 }}
+=======
+                        {{entry[key]}}
+>>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
                     </td>
                 </tr>
             </tbody>

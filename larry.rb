@@ -18,9 +18,12 @@ class ScoutingProject < Sinatra::Base
     get '/larrage' do
         erb :im
     end
+<<<<<<< HEAD
     get '/new' do
         erb :new
     end
+=======
+>>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
     get '/adrian' do
         erb :zenith
     end
@@ -30,8 +33,29 @@ class ScoutingProject < Sinatra::Base
     get '/' do
         erb :home
     end
+<<<<<<< HEAD
     get '/chart' do
         erb :chart
+=======
+    get '/teams/:team' do
+        @man = settings.mongo_db.find({team: params['team']}).to_a.to_json
+    end
+    get '/compare' do
+        @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
+        @teams = {}
+        t = @matches.map{ |r| r[:team]}.uniq 
+        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' }
+        t.each do |team|
+            @teams[team] ||= {'team' => team.to_s.rjust(4, '0')}
+            o = @matches.select{ |r| r[:team] == team }.count.to_f
+            @keys.each do |k|
+                @teams[team][k] = @matches.select{ |r| r[:team] == team }
+                                          .map{ |r| r[k]}
+                                          .reduce(0){ |sum, n| sum + (n.to_i || 0)} / o
+            end
+        end
+        erb :compare
+>>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
     end
     get '/trend' do
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
