@@ -29,7 +29,7 @@ $(function() {
     client = new Faye.Client('/faye');
 });
 function idk() {
-    var publication = client.publish('/result/ima/luke', {text: im.message });
+    var publication = client.publish('/list/red', {text: im.message });
 
     publication.then(function() {
         alert('Message received by server!');

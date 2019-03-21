@@ -181,28 +181,22 @@ function submit() {
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
                                             <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "461"}%>
                                             <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Good", id: 'hatchplaced',teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Good", id: 'cargoplaced',teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'cargo-drop',teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'hatchplaced',teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'cargoplaced',teamid: "461"}%>
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
                                             <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "462"}%>
                                             <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Good", id: 'hatchplaced',teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Good", id: 'cargoplaced',teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'cargo-drop',teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'hatchplaced',teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'cargoplaced',teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
                                             <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "463"}%>
                                             <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Good", id: 'hatchplaced',teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'hatch-drop',teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Good", id: 'cargoplaced',teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'cargo-drop',teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'hatchplaced',teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'cargoplaced',teamid: "463"}%>
                                         </div>    
                                     </div>
                                 </div>
@@ -298,10 +292,12 @@ var app6 = new Vue({
 var client;
 $(function() {
     client = new Faye.Client('/faye');
+    client.subscribe('/list/red', function(message) { 
+                               window.alert(message.text);
+                               })
 });
 function idk() {
     var publication = client.publish('/result/red', {text: app6.message });
-
     publication.then(function() {
         alert('Submitted');
     }, function(error) {
