@@ -16,13 +16,8 @@ var client;
 $(function() {
     client = new Faye.Client('/faye');
     client.subscribe('/result/*', function(message) {
-<<<<<<< HEAD
-                               console.log(message);
-                               window.alert(message.text);
-=======
                                window.alert(message.text);
                                console.log(message);
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
                                if (message.text == 'red submitted') {
                                    $('.461').removeClass('btn-primary');
                                    $('.462').removeClass('btn-primary');
@@ -40,10 +35,6 @@ $(function() {
                                    $('.466').addClass('btn-warning');
                             }
                             })});
-<<<<<<< HEAD
-function fsh() {
-	var publication = client.publish('/list/red', {text: 'Refresh Your Page' });
-=======
         </script>
         <script>
 function mayFunction() {
@@ -53,14 +44,12 @@ x.style.visibility = 'visible';
 } else {
 x.style.visibility = 'hidden';
 }
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
 }
         </script>
         <meta
                 name='viewpoint'
                 content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
                 />
-<<<<<<< HEAD
 <style>
     #pid {
 	    position:absolute;
@@ -70,10 +59,8 @@ x.style.visibility = 'hidden';
 </style>
     </head>
     <body>
-=======
     </head>
     <body onload="mayFunction()">
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
         <div class="container-fluid" id="ag">
             <div class="row">
                 <div id="carouselExampleControls" style="width:100%" class="carousel slide" data-ride="false" data-pause="true">
@@ -140,22 +127,14 @@ x.style.visibility = 'hidden';
                 <%= partial 'partial/modal', locals: {text: "Name6",id: "6",teamid: "466"}%>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="row" style="padding:10px;margin-left:0px;" id="pid">
-=======
-        <div class="row" style="padding:10px;padding-top:20px" id="pid">
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
             <div class="col-sm-2">
                 <button type="button" onclick="gqFunction()" class="btn btn-info btn-block">Prev</button>
             </div>
             <div class="col-sm-8">
                 <center>
                     <span id="indicator" class="pre badge badge-primary">Pre</span>
-<<<<<<< HEAD
-                    <button type="button" onclick="fsh()" class="btn btn-info">Refresh</button>
-=======
                     <button type="button" onclick="mayFunction()" class="btn btn-info">Show</button>
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
                     <span id="indicator" class="pre badge badge-primary">Pre</span>
                 </center>
             </div>
@@ -165,7 +144,4 @@ x.style.visibility = 'hidden';
         </div>
         </div>
     </body>
-<<<<<<< HEAD
 </html>
-=======
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2

@@ -18,12 +18,6 @@ class ScoutingProject < Sinatra::Base
     get '/larrage' do
         erb :im
     end
-<<<<<<< HEAD
-    get '/new' do
-        erb :new
-    end
-=======
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
     get '/adrian' do
         erb :zenith
     end
@@ -33,10 +27,9 @@ class ScoutingProject < Sinatra::Base
     get '/' do
         erb :home
     end
-<<<<<<< HEAD
     get '/chart' do
         erb :chart
-=======
+    end
     get '/teams/:team' do
         @man = settings.mongo_db.find({team: params['team']}).to_a.to_json
     end
@@ -55,7 +48,6 @@ class ScoutingProject < Sinatra::Base
             end
         end
         erb :compare
->>>>>>> 89c8af67944bc19a9d78219a68cfef1d9cf8a6b2
     end
     get '/trend' do
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
