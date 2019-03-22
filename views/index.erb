@@ -84,6 +84,7 @@ function submit() {
             payload['StartPos'] = set.filter('[st-mid]').hasClass('btn-success') ? '1' : '0';
             payload['SandComp'] = set.filter('[sit-mid]').hasClass('btn-success') ? '1' : (set.filter('[sit-left]').hasClass('btn-success')) ? '2' : '0';
             payload['Landing'] = set.filter('[data-mide]').hasClass('btn-success') ? '1' : (set.filter('[data-rite]').hasClass('btn-success')) ? '2' : (set.filter('[data-ritee]').hasClass('btn-success')) ? '3' : '0';
+            payload['Ability'] = set.filter('[lvl3]').hasClass('btn-success') ? '2' : (set.filter('[lvl2]').hasClass('btn-success')) ? '1' : '0';
         }
         parts.push(JSON.stringify(payload));
     });
@@ -181,22 +182,22 @@ function submit() {
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
                                             <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "461"}%>
                                             <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'hatchplaced',teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'cargoplaced',teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'shatchplaced',teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'scargoplaced',teamid: "461"}%>
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
                                             <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "462"}%>
                                             <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'hatchplaced',teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'cargoplaced',teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'shatchplaced',teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'scargoplaced',teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4"> 
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
                                             <%= partial 'partial/rating', locals: {datass: "sit-rit",datas: "sit-mid",name1: "N/a",name2: "Auto",name3: "Tele",teamid: "463"}%>
                                             <%= partial 'partial/doublebutsinglechoose', locals: {datas: "st-mid",datapoint: 'startPos',name1: "Level 1",name2: "Level 2",teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'hatchplaced',teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'cargoplaced',teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch", id: 'shatchplaced',teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo", id: 'scargoplaced',teamid: "463"}%>
                                         </div>    
                                     </div>
                                 </div>
@@ -208,27 +209,21 @@ function submit() {
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "461"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "461"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "461"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "461"}%>
+                                            <%= partial 'partial/rating', locals: {datass: "lvl3",datas: "lvl2",name1: "Level 1",name2: "Level 2",name3: "Level 3",teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch Placed", id: 'hatchplaced',teamid: "461"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo Placed", id: 'cargoplaced',teamid: "461"}%>
                                         </div> 
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "462"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "462"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "462"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "462"}%>
+                                            <%= partial 'partial/rating', locals: {datass: "lvl3",datas: "lvl2",name1: "Level 1",name2: "Level 2",name3: "Level 3",teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch Placed", id: 'hatchplaced',teamid: "462"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo Placed", id: 'cargoplaced',teamid: "462"}%>
                                         </div>
                                         <div class="col-sm-4">
                                             <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl3", label2: "Cargo Lvl 3", id: "hatch3", id2: "cargo3", teamid: "463"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl2", label2: "Cargo Lvl 2", id: "hatch2", id2: "cargo2", teamid: "463"}%>
-                                            <%= partial 'partial/rocket', locals: {datapoint: "rocket", label: "Hatch Lvl1", label2: "Cargo Lvl 1", id: "hatch1", id2: "cargo1", teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Hth Bad", id: 'thatch-drop',teamid: "463"}%>
-                                            <%= partial 'partial/button2', locals: {label: "Crg Bad", id: 'tcargo-drop',teamid: "463"}%>
+                                            <%= partial 'partial/rating', locals: {datass: "lvl3",datas: "lvl2",name1: "Level 1",name2: "Level 2",name3: "Level 3",teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Hatch Placed", id: 'hatchplaced',teamid: "463"}%>
+                                            <%= partial 'partial/button2', locals: {label: "Cargo Placed", id: 'cargoplaced',teamid: "463"}%>
                                         </div>
                                     </div>
                                 </div>
