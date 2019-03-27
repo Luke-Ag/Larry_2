@@ -1,0 +1,24 @@
+<%= partial 'partial/beg', locals: {title: MEME}%>
+<link rel="stylesheet" href="css/carousel.css"></link>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/toastr.min.js"></script>
+<script src="js/carousel.js"></script>
+<script src="js/counter.js"></script>
+<script src="js/button.js"></script>
+<script src="/faye/faye.js"></script>
+<script src="js/vue.js"></script>
+<div class="row" id="app6">
+	<button type="button" onClick="idk()" class="btn btn-dark btn-lg btn-block">Submit</button>
+	<input v-model="message" style="display:none;width: 100%;margin:10px;">
+</div>
+<style>
+var app6 = new Vue({
+	el: '#app6',
+	data: {
+		message: ""
+	}
+})
+</style>
+<	>

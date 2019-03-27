@@ -18,6 +18,9 @@ class ScoutingProject < Sinatra::Base
     get '/larrage' do
         erb :im
     end
+    get '/meme' do
+        erb :mem
+    end
     get '/adrian' do
         erb :zenith
     end
@@ -37,7 +40,7 @@ class ScoutingProject < Sinatra::Base
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
         @teams = {}
         t = @matches.map{ |r| r[:team]}.uniq 
-        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' }
+        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' || x == 'Ability' || x == 'Defense'}
         t.each do |team|
             @teams[team] ||= {'team' => team.to_s.rjust(4, '0')}
             o = @matches.select{ |r| r[:team] == team }.count.to_f

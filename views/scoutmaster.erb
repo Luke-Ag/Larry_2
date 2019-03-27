@@ -1,169 +1,158 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="css/bootstrap.min.css"</link>
-        <link rel="stylesheet" href="css/global.css"</link>
-        <link rel="stylesheet" href="css/toastr.min.css"></link>
-        <script type="text/javascript" 
-                src="/faye/client.js">
-        </script>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/toastr.min.js"></script>
-        <script src="js/scoutmaster.js"></script>
-        <script src="/faye/faye.js"></script>
-        <script src="js/vue.js"></script>
-        <script>
+	<head>
+		<link rel="stylesheet" href="css/bootstrap.min.css"</link>
+		<link rel="stylesheet" href="css/global.css"</link>
+		<link rel="stylesheet" href="css/toastr.min.css"></link>
+		<script type="text/javascript" src="/faye/client.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/toastr.min.js"></script>
+		<script src="js/scoutmaster.js"></script>
+		<script src="/faye/faye.js"></script>
+		<script src="js/vue.js"></script>
+		<script>
 var client;
 $(function() {
-    client = new Faye.Client('/faye');
-    client.subscribe('/result/*', function(message) {
-                               window.alert(message.text);
-                               console.log(message);
-                               if (message.text == 'red submitted') {
-                               $('.461').removeClass('btn-primary');
-                               $('.462').removeClass('btn-primary');
-                               $('.463').removeClass('btn-primary');
-                               $('.461').addClass('btn-warning');
-                               $('.462').addClass('btn-warning');
-                               $('.463').addClass('btn-warning');
-                               }
-                               if (message.text == 'blue submitted') {
-                               $('.464').removeClass('btn-primary');
-                               $('.465').removeClass('btn-primary');
-                               $('.466').removeClass('btn-primary');
-                               $('.464').addClass('btn-warning');
-                               $('.465').addClass('btn-warning');
-                               $('.466').addClass('btn-warning');
-                               }
-                               })});
+	client = new Faye.Client('/faye');
+	client.subscribe('/result/*', function(message) {
+				   window.alert(message.text);
+				   console.log(message);
+				   if (message.text == 'red submitted') {
+				   $('.461').removeClass('btn-primary');
+				   $('.462').removeClass('btn-primary');
+				   $('.463').removeClass('btn-primary');
+				   $('.461').addClass('btn-warning');
+				   $('.462').addClass('btn-warning');
+				   $('.463').addClass('btn-warning');
+				   }
+				   if (message.text == 'blue submitted') {
+				   $('.464').removeClass('btn-primary');
+				   $('.465').removeClass('btn-primary');
+				   $('.466').removeClass('btn-primary');
+				   $('.464').addClass('btn-warning');
+				   $('.465').addClass('btn-warning');
+				   $('.466').addClass('btn-warning');
+				   }
+				   })});
 
-        </script>
-        <script>
-function mayFunction() {
-var x = document.getElementById('ga');
-if (x.style.visibility === 'hidden') {
-x.style.visibility = 'visible';
-} else {
-x.style.visibility = 'hidden';
-}
-}
-        </script>
-        <meta
-                name='viewpoint'
-                content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
-                />
-        <style>
+		</script>
+		<script>
+// function mayFunction() {
+// 	var x = document.getElementById('ga');
+// 	if (x.style.visibility === 'hidden') {
+//		x.style.visibility = 'visible';
+//	} else {
+//		x.style.visibility = 'hidden';
+//	}
+// }
+		</script>
+		<style>
 #pid {
-    position:absolute;
-    bottom:0px;
-    min-width:100%;
+	position:absolute;
+	bottom:0px;
+	min-width:100%;
 }
-        </style>
-    </head>
-    <body>
-        </head>
-        <body onload="mayFunction()">
-            <div class="container-fluid" id="ag">
-                <div class="row">
-                    <div id="carouselExampleControls" style="width:100%" class="carousel slide" data-ride="false" data-pause="true">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" style="padding:10px">
-                                <div class="row">    
-                                    <%= partial 'partial/begin' %>
-                                </div>
-                                <div class="container-fluid">
-                                    <div class="row" id="im" width="100%">
-                                        <div
-                                                             class="col-sm-12" style="text-align:center; padding:10px" width="90%">
-                                            <input v-model="message" placeholder="Larrage" width="19" height="10px">
-                                            <button type="button" onClick="sen()" class="btn btn-success"><img src="/img/1.svg" width="10px" height="12px"></img></button>
-                                        </div>
-                                    </div>
-                                </div>	
-                            </div>
-                            <div class="carousel-item" style="padding:10px">
-                                <div class="row">    
-                                    <div class="col-sm-6">
-                                        <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
-                                        <%= partial 'partial/button2', locals: {label: "Foul", id: 'foul', teamid: "461"} %>
-                                        <%= partial 'partial/button1', locals: {name: "Fail", teamid: "461"}%>
-                                        </br>
-                                        <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
-                                        <%= partial 'partial/button2', locals: {label: "Foul", id: 'foul', teamid: "462"} %>
-                                        <%= partial 'partial/button1', locals: {name: "Fail", teamid: "462"}%>
-                                        </br>
-                                        <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
-                                        <%= partial 'partial/button2', locals: {label: "Foul", id: 'foul', teamid: "463"} %>
-                                        <%= partial 'partial/button1', locals: {name: "Fail", teamid: "463"}%>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <%= partial 'partial/name', locals: {name: "Name",teamid: "464"}%>
-                                        <%= partial 'partial/button2', locals: {label: "Foul", id: 'foul', teamid: "464"} %>
-                                        <%= partial 'partial/button1', locals: {name: "Fail", teamid: "464"}%>
-                                        </br>
-                                        <%= partial 'partial/name', locals: {name: "Name",teamid: "465"}%>
-                                        <%= partial 'partial/button2', locals: {label: "Foul", id: 'foul', teamid: "465"} %>
-                                        <%= partial 'partial/button1', locals: {name: "Fail", teamid: "465"}%>
-                                        </br>
-                                        <%= partial 'partial/name', locals: {name: "Name",teamid: "466"}%>
-                                        <%= partial 'partial/button2', locals: {label: "Foul", id: 'foul', teamid: "466"} %>
-                                        <%= partial 'partial/button1', locals: {name: "Fail", teamid: "466"}%>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item" style="padding:10px">
-                                <div class="row">
-                                    <button type="button" onClick="submit()" style="margin-top:40px" class="btn btn-dark btn-lg btn-block">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" id="ga">    
-                <div class="col-sm-6">
-                    <%= partial 'partial/name', locals: {name: "Name",teamid: "461"}%>
-                    <%= partial 'partial/modal', locals: {text: "Name1",id: "1",teamid: "461"}%>
-                    <%= partial 'partial/name', locals: {name: "Name",teamid: "462"}%>
-                    <%= partial 'partial/modal', locals: {text: "Name2",id: "2",teamid: "462"}%>
-                    <%= partial 'partial/name', locals: {name: "Name",teamid: "463"}%>
-                    <%= partial 'partial/modal', locals: {text: "Name3",id: "3",teamid: "463"}%>
-                </div>
-                <div class="col-sm-6">
-                    <%= partial 'partial/name', locals: {name: "Name",teamid: "464"}%>
-                    <%= partial 'partial/modal', locals: {text: "Name4",id: "4",teamid: "464"}%>
-                    <%= partial 'partial/name', locals: {name: "Name",teamid: "465"}%>
-                    <%= partial 'partial/modal', locals: {text: "Name5",id: "5",teamid: "465"}%>
-                    <%= partial 'partial/name', locals: {name: "Name",teamid: "466"}%>
-                    <%= partial 'partial/modal', locals: {text: "Name6",id: "6",teamid: "466"}%>
-                </div>
-            </div>
-            <div class="row" style="padding:10px;margin-left:0px;" id="pid">
-                <div class="col-sm-2">
-                    <button type="button" onclick="gqFunction()" class="btn btn-info btn-block">Prev</button>
-                </div>
-                <div class="col-sm-8">
-                    <center>
-                        <span id="indicator" class="pre badge badge-primary">Pre</span>
-                        <button type="button" onclick="mayFunction()" class="btn btn-info">Show</button>
-                        <span id="indicator" class="pre badge badge-primary">Pre</span>
-                    </center>
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" onclick="qFunction()" class="btn btn-info btn-block">Next</button>
-                </div>
-            </div>
-            </div>
-        </body>
+		</style>
+	</head>
+	<body>
+<!--<body onload="mayFunction()"> Used in conjuction with commented out mayFunction script (if reinstated remove new body tag) --!>
+		<div class="container-fluid" id="ag">
+			<div class="row">
+				<div id="carouselExampleControls" style="width:100%" class="carousel slide" data-ride="false" data-pause="true">
+					<div class="carousel-inner">
+						<div class="carousel-item active" style="padding:10px">
+							<div class="row">    
+								<%= partial 'partial/begin' %>
+							</div>
+							<div class="container-fluid">
+								<div class="row" id="im" width="100%">
+									<div class="col-sm-12" style="text-align:center; padding:10px" width="90%">
+										<input v-model="message" placeholder="Larrage" width="19" height="10px">
+										<button type="button" onClick="sen()" class="btn btn-success"><img src="/img/1.svg" width="10px" height="12px"></img></button>
+									</div>
+								</div>
+							</div>	
+						</div>
+						<div class="carousel-item" style="padding:10px">
+							<div class="row">    
+								<div class="col-sm-6">
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "461",number: "1"}%>
+									<%= partial 'partial/button4', locals: {label: "Foul", id: 'foul', teamid: "461"} %>
+									<%= partial 'partial/button1', locals: {name: "Fail", teamid: "461"}%>
+									</br>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "462",number: "2"}%>
+									<%= partial 'partial/button4', locals: {label: "Foul", id: 'foul', teamid: "462"} %>
+									<%= partial 'partial/button1', locals: {name: "Fail", teamid: "462"}%>
+									</br>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "463",number: "3"}%>
+									<%= partial 'partial/button4', locals: {label: "Foul", id: 'foul', teamid: "463"} %>
+									<%= partial 'partial/button1', locals: {name: "Fail", teamid: "463"}%>
+								</div>
+								<div class="col-sm-6">
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "464",number: "4"}%>
+									<%= partial 'partial/button4', locals: {label: "Foul", id: 'foul', teamid: "464"} %>
+									<%= partial 'partial/button1', locals: {name: "Fail", teamid: "464"}%>
+									</br>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "465",number: "5"}%>
+									<%= partial 'partial/button4', locals: {label: "Foul", id: 'foul', teamid: "465"} %>
+									<%= partial 'partial/button1', locals: {name: "Fail", teamid: "465"}%>
+									</br>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "466",number: "6"}%>
+									<%= partial 'partial/button4', locals: {label: "Foul", id: 'foul', teamid: "466"} %>
+									<%= partial 'partial/button1', locals: {name: "Fail", teamid: "466"}%>
+								</div>
+							</div>
+						</div>
+						<div class="carousel-item" style="padding:10px">
+							<div class="row">
+								<button type="button" onClick="submit()" style="margin-top:40px" class="btn btn-dark btn-lg btn-block">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+							<div class="row" id="ga">    
+								<div class="col-sm-6">
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "461",number: "1"}%>
+									<%= partial 'partial/modal', locals: {text: "Name1",id: "1",teamid: "461"}%>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "462",number: "2"}%>
+									<%= partial 'partial/modal', locals: {text: "Name2",id: "2",teamid: "462"}%>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "463",number: "3"}%>
+									<%= partial 'partial/modal', locals: {text: "Name3",id: "3",teamid: "463"}%>
+								</div>
+								<div class="col-sm-6">
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "464",number: "4"}%>
+									<%= partial 'partial/modal', locals: {text: "Name4",id: "4",teamid: "464"}%>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "465",number: "5"}%>
+									<%= partial 'partial/modal', locals: {text: "Name5",id: "5",teamid: "465"}%>
+									<%= partial 'partial/name', locals: {name: "Name",teamid: "466",number: "6"}%>
+									<%= partial 'partial/modal', locals: {text: "Name6",id: "6",teamid: "466"}%>
+								</div>
+							</div>
+		<div class="row" style="padding:10px;margin-left:0px;" id="pid">
+			<div class="col-sm-2">
+				<button type="button" onclick="gqFunction()" class="btn btn-info btn-block">Prev</button>
+			</div>
+			<div class="col-sm-8">
+				<center>
+					<span id="indicator" class="pre badge badge-primary">Pre</span>
+				</center>
+			</div>
+			<div class="col-sm-2">
+				<button type="button" onclick="qFunction()" class="btn btn-info btn-block">Next</button>
+			</div>
+		</div>
+	</body>
 </html>
 <script>
 var im = new Vue({
-    el: '#im',
-    data: {
-        message: ""
-    }
+	el: '#im',
+	data: {
+		message: "Refresh"
+	}
 })
 function sen() {
-    var publication = client.publish('/list/red', {text: im.message });
+	var publication = client.publish('/list/red', {text: im.message});
 }
 </script>
