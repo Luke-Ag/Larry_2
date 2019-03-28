@@ -1,3 +1,2 @@
 #!/bin/bash
-cd /home/pi/unnamedscoutingproject/
-sudo rackup -o 0.0.0.0 -p 80 -E production -s puma
+sudo RACK_ENV=production bundle exec rackup -p 9292

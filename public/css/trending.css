@@ -1,0 +1,25 @@
+thead {
+    color:#fff;
+    background-color:#000;
+    border-collapse:none;
+}
+tbody {
+    color:#121;
+    text-align:center;
+}
+tfoot {
+    color:red;
+}
+table {
+    width:100%;
+}
+td {
+    padding: 4px
+}
+th:hover{
+    cursor:pointer;
+    background-color:#555;
+}
+th {
+    margin-bottom:10px;
+}

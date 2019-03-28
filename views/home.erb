@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/css/bootstrap.min.css"></link>
-        <link rel="stylesheet" href="/css/toastr.min.css"></link>
-        <link rel="stylesheet" href="/css/global.css"></link>
-        <title>WBI Scouting System 2.0</title>
-    </head> 
-    <body>
-        <div class="container-fluid" style="margin:0;padding:0">
-            <div class="row">
-                <div class="col-sm-3">
-                    <a class="btn btn-danger btn-lg btn-block" style="padding-top:48VH;padding-bottom:49VH;height:100VH" href="/red">Red Alliance</a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="btn btn-primary btn-lg btn-block" style="padding-top:48VH;padding-bottom:49VH;height:100VH" href="/blue">Blue Alliance</a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="btn btn-dark btn-lg btn-block" style="padding-top:48VH;padding-bottom:49VH;height:100VH;color:white" href="/scoutmaster">Scoutmaster</a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="btn btn-light btn-lg btn-block" style="padding-top:48VH;padding-bottom:49VH;height:100VH;color:black" href="/ynot">Larry</a>
-                </div>
+        <link src="global.css" rel="stylesheet" type="text/css">
+        <link src="toaster.min.css" rel="stylesheet" type="text/css">
+        <script src="js/vue.js"></script>
+        <title>Larry 2.0</title>
+        <style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+    }
+        </style>
+    </head>
+    <body style="margin:0">
+        <div id="hello" style="margin:0">
+            <ul>
+                <li style="float:right"><a class="active" href="#about">{{ user }}</a></li>
+            </ul>
+            <div align="center" style="margin-top:40vh">
+                <p>Hello, {{ user }}.</p>
+                <p>Welcome to the second revision of the 2019 FRC Destination Deep Space Scouting system.</br> This program has been developed by the FRC team 461 Westside Boilerinvasion.</br> All rights lie with the stated team and under no circumstances shall this software be redistributed or duplicated without proper authorization.</br> If you would like to refer to this software in a different way, you can call it Larry.</p>
+                <p>If you would like to navigate to the actual software please click here.</p>
+                <a href="home" class="btn btn-warning" role="button">Click</a>
+                <input v-model="user">
             </div>
         </div>
+        <script>
+var app = new Vue({
+    el: '#hello',
+    data: {
+        user: 'Admin'
+    }
+})
+        </script>
     </body>
+</html>
