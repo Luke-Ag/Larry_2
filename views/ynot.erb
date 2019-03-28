@@ -16,38 +16,47 @@
         <script src="js/bootstrap.min.js"></script>
         <title>Scouting System</title>
     </head>
+    <script>
+    </script>
     <style>
 .btn-light {
     background-color: #f2eef0;
     border: none
 }
+.blue {
+    visibility: hidden;
+}
     </style>
-    <body onload="13()">
-        <div class="container-fluid" style="margin:0;padding:0">
+    <body onload="as()">
+        <div class="container-fluid" id="hello">
+            <br>
             <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-5">
                 </div>
-                <div class="col-sm-1">
-                    <img src="/img/logo.png" style="margin-top:12px;" width="64px"></img>
+                <div class="col-sm-2" style="text-align:center">
+                    <img src="/img/logo.png" width="64px"></img>
+                </div>
+                <div class="col-sm-5">
                 </div>
             </div>
             <br>
+            <center><input class="n" placeholder="Password" v-model="user" type="password"></input>  <button onclick="a()">Go!</button></center>
             <br>
             <div class="row">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-primary btn-block btn-lg" href="/blue">Blue Alliance</a>
+                    <a class="btn btn-primary btn-block btn-lg" class="13" href="/blue">Blue Alliance</a>
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-danger btn-block btn-lg" href="/red">Red Alliance</a>
+                    <a class="btn btn-danger btn-block btn-lg" class="13" href="/red">Red Alliance</a>
                 </div>
                 <div class="col-sm-1">
                 </div>
             </div>
             <br>
             <br>
-            <div class="row" style="12">
+            <div class="row 12 blue">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -61,7 +70,7 @@
             </div>
             <br>
             <br>
-            <div class="row" style="12">
+            <div class="row 12">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -75,7 +84,7 @@
             </div>
             <br>
             <br>
-            <div class="row" style="12">
+            <div class="row 12">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -89,7 +98,7 @@
             </div>
             <br>
             <br>
-            <div class="row" style="12">
+            <div class="row 12">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -103,7 +112,7 @@
             </div>
             <br>
             <br>
-            <div class="row" style="12">
+            <div class="row 12">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -117,7 +126,7 @@
             </div>
             <br>
             <br>
-            <div class="row" style="12">
+            <div class="row 12">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -132,13 +141,22 @@
         </div>
     </body>
     <script>
+var app = new Vue({
+    el: '#hello',
+    data: {
+        user: ''
+    }
+})
 function teamgo() {
     location.replace("/teams/" + teamnumber.value);
     console.log(teamnumber.value)
 }
-function 13() {
-    if () {
-
+function as() {
+    $('.12').addClass('blue')
+}
+function a() {
+    if (app.user == 'Admin') {
+        $('.12').removeClass('blue')
     }
 }
     </script>

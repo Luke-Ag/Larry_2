@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Welcome to the README document that belongs to the scouting project. This is not a legal document.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Laoreet non curabitur gravida arcu. Imperdiet proin fermentum leo vel. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim. Donec ac odio tempor orci dapibus. Suspendisse faucibus interdum posuere lorem ipsum dolor. Massa tempor nec feugiat nisl pretium fusce id
 velit. Aliquam ut porttitor leo a diam sollicitudin tempor. Suspendisse potenti nullam ac tortor vitae purus faucibus. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue. Sollicitudin nibh sit amet commodo nulla facilisi nullam. Eu mi bibendum neque egestas congue quisque egestas diam in. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Ac ut consequat semper viverra nam. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Nec feugiat in
 fermentum posuere urna nec tincidunt.
@@ -153,3 +154,6 @@ Thanks for reading!
 
 
 
+=======
+This is a fully functional project but without the proper authentication the entire software will not be at its full capacity of efficency.
+>>>>>>> 4e09cb2b7dad69b8f417f7daf8caa5cda54ab4a1

@@ -10,7 +10,7 @@ class TheBlueAlliance
   base_uri 'https://www.thebluealliance.com/api/v3'
 
   def initialize
-    @options = {headers: {'X-TBA-App-Id': 'frc461:usp:v0', 'X-TBA-Auth-Key': CONFIG['tba_api_key']}}
+    @options = {headers: {'X-TBA-App-Id': 'frc461:usp:v0', 'X-TBA-Auth-Key': CONFIG['tba_api_key']}, verify: true}
     @cacheCalls = {}
   end
 
@@ -36,7 +36,7 @@ class TheBlueAlliance
   end
 
   def events options={}
-    call '/events/2018', options
+    call '/events/2019', options
   end
   
   def getevent key

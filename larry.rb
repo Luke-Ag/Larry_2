@@ -11,8 +11,15 @@ class ScoutingProject < Sinatra::Base
         set :mongo_db, db[:unnamedScoutingProject]
         set :tba, TheBlueAlliance.new
     end
+    before do
+        @config = settings.mongo_db.find({ 'config' => 'CONFIG!' }).first
+    end
+
     get '/larrage' do
         erb :im
+    end
+    get '/meme' do
+        erb :mem
     end
     get '/adrian' do
         erb :zenith
@@ -36,7 +43,7 @@ class ScoutingProject < Sinatra::Base
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
         @teams = {}
         t = @matches.map{ |r| r[:team]}.uniq 
-        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' }
+        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' || x == 'Ability' || x == 'Defense'}
         t.each do |team|
             @teams[team] ||= {'team' => team.to_s.rjust(4, '0')}
             o = @matches.select{ |r| r[:team] == team }.count.to_f
@@ -52,7 +59,7 @@ class ScoutingProject < Sinatra::Base
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
         @teams = {}
         t = @matches.map{ |r| r[:team]}.uniq 
-        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' }
+        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' || x == 'hatch-drop' || x == 'cargo-drop'}
         t.each do |team|
             @teams[team] ||= {'team' => team.to_s.rjust(4, '0')}
             o = @matches.select{ |r| r[:team] == team }.count.to_f

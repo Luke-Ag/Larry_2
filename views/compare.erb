@@ -12,11 +12,11 @@
         <div class="row" style="padding-left:10px;margin:0">
             <div class="card" style="width:12em;margin:10px" v-for="entry in filteredData">
                 <div class="row">
-                    <div class="col">
-                        <b><p class="card-title" v-for="key in columns" style="text-align:center;margin-bottom:12px">{{ key | capitalize }}</p></b>
+                    <div class="col-sm-8">
+                        <b><p v-for="key in columns" style="text-align:center;margin-bottom:12px">{{ key | capitalize }}</p></b>
                     </div>
-                    <div class="col">
-                        <p class="card-text" v-for="key in columns" style="text-align:center;margin-bottom:12px">{{entry[key]}}</p>
+                    <div class="col-sm-4">
+			<p v-for="key in columns" style="text-align:center;margin-bottom:12px">{{ (typeof entry[key] === 'string') ? entry[key] : Math.round(entry[key] * 100) / 100 }}</p>
                     </div>
                 </div>
             </div>
