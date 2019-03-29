@@ -42,35 +42,35 @@
             <br>
             <center><input class="n" placeholder="Password" v-model="user" type="password"></input>  <button onclick="a()">Go!</button></center>
             <br>
-            <div class="row">
+            <div class="row 12 16 99">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-primary btn-block btn-lg" class="13" href="/blue">Blue Alliance</a>
+                    <a class="btn btn-primary btn-block btn-lg" href="/blue">Blue Alliance</a>
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-danger btn-block btn-lg" class="13" href="/red">Red Alliance</a>
-                </div>
-                <div class="col-sm-1">
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row 12 blue">
-                <div class="col-sm-1">
-                </div>
-                <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/adrian">Adrian</a>
-                </div>
-                <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" href="/all">All Data</a>
+                    <a class="btn btn-danger btn-block btn-lg" href="/red">Red Alliance</a>
                 </div>
                 <div class="col-sm-1">
                 </div>
             </div>
             <br>
             <br>
-            <div class="row 12">
+            <div class="row 10 15 16 99">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg 23" align="center" href="/adrian">Adrian</a>
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg 22" href="/all">All Data</a>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row 10 14 16 99">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -84,25 +84,11 @@
             </div>
             <br>
             <br>
-            <div class="row 12">
+            <div class="row 10 15 16 99">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" href="/config">Config</a>
-                </div>
-                <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" href="/export">Export Data</a>
-                </div>
-                <div class="col-sm-1">
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row 12">
-                <div class="col-sm-1">
-                </div>
-                <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/import">Import Data</a>
+                    <a class="btn btn-dark btn-block btn-lg 23" href="/config">Config</a>
                 </div>
                 <div class="col-sm-5">
                     <a class="btn btn-dark btn-block btn-lg" href="/larrage">Instant Messager</a>
@@ -112,7 +98,21 @@
             </div>
             <br>
             <br>
-            <div class="row 12">
+            <div class="row 10 13 16 99">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/import">Import Data</a>
+                </div>
+                <div class="col-sm-5">
+                    <a class="btn btn-dark btn-block btn-lg" href="/export">Export Data</a>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row 10 16 99">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
@@ -126,14 +126,14 @@
             </div>
             <br>
             <br>
-            <div class="row 12">
+            <div class="row 10 13 14 16 99">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" align="center" href="/scoutmaster">Scoutmaster</a>
+                    <a class="btn btn-dark btn-block btn-lg 21" align="center" href="/scoutmaster">Scoutmaster</a>
                 </div>
                 <div class="col-sm-5">
-                    <a class="btn btn-dark btn-block btn-lg" href="/trend">Trending Data</a>
+                    <a class="btn btn-dark btn-block btn-lg 20" href="/trend">Trending Data</a>
                 </div>
                 <div class="col-sm-1">
                 </div>
@@ -152,11 +152,27 @@ function teamgo() {
     console.log(teamnumber.value)
 }
 function as() {
-    $('.12').addClass('blue')
+    $('.10').addClass('blue')
 }
 function a() {
     if (app.user == 'Admin') {
-        $('.12').removeClass('blue')
+        $('.99').removeClass('blue')
+    } else if (app.user == 'M3dia') {
+        $('.16').removeClass('blue')
+        $('.23').addClass('blue')
+        $('.23').addClass('blue')
+    } else if (app.user == 'D3v3lop') {
+        $('.15').removeClass('blue')
+        $('.22').addClass('blue')
+        $('.12').addClass('blue')
+    } else if (app.user == 'B3cca') {
+        $('.14').removeClass('blue')
+        $('.21').addClass('blue')
+        $('.12').addClass('blue')
+    } else if (app.user == 'SM') {
+        $('.13').removeClass('blue')
+        $('.12').addClass('blue')
+        $('.20').addClass('blue')
     }
 }
     </script>
