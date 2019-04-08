@@ -43,10 +43,18 @@ class ScoutingProject < Sinatra::Base
         @matches = settings.mongo_db.find(team: {'$exists' => true}, match: {'$exists' => true}).map{|e| e}
         @teams = {}
         t = @matches.map{ |r| r[:team]}.uniq 
-        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' || x == 'Ability' || x == 'Defense'}
+        @keys = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' || x == 'Ability' || x == 'Defense' || x == 'foul' || x == 'fail'}
+        @news = @matches[0].keys.reject { |x| x == 'match' || x == 'team' || x.include?('Comment') || x == '_id' || x == 'Ability' || x == 'cargosand' || x == 'hatchsand' || x == 'hatchplaced' || x == 'cargoplaced' || x == 'StartLevel' || x == 'Movement' || x == 'Landing'}
         t.each do |team|
             @teams[team] ||= {'team' => team.to_s.rjust(4, '0')}
             o = @matches.select{ |r| r[:team] == team }.count.to_f
+            @news.each do |k|
+                @teams[team][k] = @matches.select{ |r| r[:team] == team }
+                                          .push("DF")
+                                          .map{ |r| r[k]}
+                                          .reduce(0){ |sum, n| sum + (n.to_i || 0)}
+                                          
+            end
             @keys.each do |k|
                 @teams[team][k] = @matches.select{ |r| r[:team] == team }
                                           .map{ |r| r[k]}
